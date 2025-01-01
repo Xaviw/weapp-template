@@ -1,0 +1,61 @@
+{
+  // 编辑器配置，等同 editorconfig
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+
+  // 关闭自动检测缩进符号
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+
+  // eslint
+  "eslint.probe": ["javascript", "typescript", "wxs"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  // prettier
+  "prettier.documentSelectors": ["**/*.{js,ts,wxs,wxml,scss,less,wxss,json,md}"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[wxs]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[wxml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[wxss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[md]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // 支持注释的 json 文件映射为 jsonc，避免报错
+  "files.associations": {
+    "settings.json": "jsonc"
+  },
+
+  // 拼写检查插件，需要手动安装微信开发者工具可用的版本
+  // https://github.com/streetsidesoftware/vscode-spell-checker/releases/tag/v1.9.4
+  "cSpell.enableFiletypes": ["wxml", "wxs", "wxss"],
+  "cSpell.allowCompoundWords": true,
+  "cSpell.ignorePaths": ["**/.git/**", "**/node_modules/**", "**/miniprogram_npm/**", "**/dist/**"],
+  "cSpell.words": ["datong", "prettierrc", "weapp", "weui", "wxml", "wxs", "wxss"]
+}

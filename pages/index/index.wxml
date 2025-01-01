@@ -1,0 +1,24 @@
+<view
+  a="aaaaaaaaaaa"
+  bbbbbbbbbbb="bbbbbbbbbb"
+  ccccccc="cccccccc"
+  ddddddd="dddddddddd"
+  eeeeeeeee="eeeeeeee"
+  fffffff="fffffffffff"
+  gggggggggggg="ggggggggggggggg"
+>
+  1111
+  <text
+    a="aaaaaaaaaaa"
+    bbbbbbbbbbb="bbbbbbbbbb"
+    ccccccc="cccccccc"
+    ddddddd="dddddddddd"
+    eeeeeeeee="eeeeeeee"
+    fffffff="fffffffffff"
+    gggggggggggg="ggggggggggggggg"
+    >2222</text
+  >
+  <image src="../../assets/img.png" style="width: 1em; height: 1em" />
+  <text>3333</text>
+</view>
+<navigator url="/pages/sub/index">sub</navigator>

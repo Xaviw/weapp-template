@@ -1,0 +1,9 @@
+miniprogram_npm
+.DS_Store
+.npmrc
+.idea
+
+*-lock.json
+*.log
+*ignore
+.gitattributes

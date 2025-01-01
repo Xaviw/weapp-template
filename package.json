@@ -1,0 +1,42 @@
+{
+  "name": "weapp-template",
+  "version": "1.0.0",
+  "description": "原生微信小程序开发模版",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --fix",
+    "format": "prettier **/*.{js,ts,wxs,wxml,wxss,scss,less,json,md} --write --check --no-error-on-unmatched-pattern",
+    "postinstall": "npx simple-git-hooks"
+  },
+  "dependencies": {
+    "@ssv-lab/anim": "^1.1.6",
+    "@ssv-lab/anim-plugin-api-encrypt": "^1.1.6",
+    "@ssv-lab/anim-plugin-api-gray": "^1.1.6",
+    "@ssv-lab/anim-plugin-datong": "^1.2.2",
+    "@ssv-lab/anim-plugin-logger": "^1.1.6",
+    "aegis-mp-sdk": "^1.39.1",
+    "base64-js": "^1.5.1",
+    "cos-wx-sdk-v5": "^1.7.1",
+    "dayjs": "^1.11.12",
+    "lottie-miniprogram": "^1.0.12",
+    "spark-md5": "^3.0.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "10.1.0",
+    "eslint": "7.32.0",
+    "eslint-config-alloy": "3.8.2",
+    "lint-staged": "^15.2.10",
+    "prettier": "2.8.8",
+    "simple-git-hooks": "^2.11.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx --no-install lint-staged"
+  },
+  "lint-staged": {
+    "!(*.{js,ts,wxs})": "prettier --write",
+    "*.{js,ts,wxs}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}

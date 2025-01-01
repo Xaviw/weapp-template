@@ -1,0 +1,32 @@
+{
+  "pages": ["pages/index/index", "pages/sub/index"],
+  "subPackages": [],
+  "usingComponents": {},
+
+  "requiredBackgroundModes": [],
+  "requiredPrivateInfos": [],
+  "permission": {},
+
+  "debug": true,
+  "resolveAlias": {},
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+
+  "useExtendedLib": {
+    "weui": true
+  },
+  "window": {},
+  "renderer": "webview",
+  "rendererOptions": {
+    "skyline": {}
+  },
+
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}
