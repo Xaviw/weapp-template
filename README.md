@@ -1,4 +1,4 @@
-# 小程序开发模版
+# 模版做了些什么
 
 ## 编辑器配置
 
@@ -8,17 +8,33 @@
 
 ## ESLint
 
-1. 安装插件
+1. 微信开发者工具中安装插件
 2. 安装插件支持的 npm 包版本（`eslint@7`），相关包也需要降级
-3. 配置 `.eslintrc.cjs`（仅支持 cjs）
+3. 配置 `.eslintrc.cjs`
 4. 编辑器配置中开启保存时自动修复，以及对 `.wxs` 格式支持
 5. `package.json` 中添加 `lint` 和 `lint:fix` 命令，以及 lint-staged 配置
 
 ## Prettier
 
-1. 安装插件
+1. 微信开发者工具中安装插件
 2. 安装插件支持的 npm 包版本（`prettier@2`）
-3. 配置 `.prettierrc.cjs`（仅支持 cjs），并为 `.wxs`、`.wxml`、`.wxss` 格式指定解析器，`wxml` 解析器指定为 `angular` 可以格式化插值表达式
+3. 配置 `.prettierrc.cjs`，并为 `.wxs`、`.wxml`、`.wxss` 格式指定解析器
 4. 配置 `.prettierignore` 文件
-5. 编辑器配置中设置 prettier 为各文件的默认格式化器，以及对 `.wxs`、`.wxml`、`.wxss` 格式支持
+5. 编辑器配置中设置 prettier 为各文件的默认格式化器，以及开启对 `.wxs`、`.wxml`、`.wxss` 格式支持
 6. `package.json` 中添加 `format` 命令，以及 lint-staged 配置
+
+## Anim 框架
+
+1. 增强原生小程序功能，具体查看[文档](https://digital.ssv.tencent.com/@ssv-lab/anim/)
+2. 默认开启 “大同埋点” 插件，其他插件按需开启
+3. Anim 构造器自带发布订阅方法：`$on`、`$emit`、`$off`、`$offAll`、`$clear`
+4. `Anim.$utils` 中包含几个实用方法：`getUrlSearch`、`getUrlWithoutSearch`、`urlJoinQuery`、`safeJsonStringify`、`isPlainObject`
+
+## 性能监控 - Aegis
+
+1. 需要动态设置用户唯一标识符
+2. 查看监控记录需要腾讯云权限
+
+## tdesign 组件库
+
+1. 全局启用 icon、button、navbar 组件

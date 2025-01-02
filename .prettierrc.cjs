@@ -3,6 +3,7 @@ module.exports = {
   overrides: [
     {
       files: '*.wxml',
+      // 解析器指定为 angular 可以格式化插值表达式
       options: { parser: 'angular' },
     },
     {

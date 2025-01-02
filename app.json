@@ -1,13 +1,17 @@
 {
   "pages": ["pages/index/index", "pages/sub/index"],
   "subPackages": [],
-  "usingComponents": {},
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-navbar": "tdesign-miniprogram/navbar/navbar"
+  },
 
   "requiredBackgroundModes": [],
   "requiredPrivateInfos": [],
   "permission": {},
 
-  "debug": true,
+  "debug": false,
   "resolveAlias": {},
   "networkTimeout": {
     "request": 60000,
@@ -16,16 +20,12 @@
     "downloadFile": 60000
   },
 
-  "useExtendedLib": {
-    "weui": true
-  },
   "window": {},
   "renderer": "webview",
   "rendererOptions": {
     "skyline": {}
   },
 
-  "style": "v2",
   "componentFramework": "glass-easel",
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"

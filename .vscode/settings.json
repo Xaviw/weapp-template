@@ -57,5 +57,5 @@
   "cSpell.enableFiletypes": ["wxml", "wxs", "wxss"],
   "cSpell.allowCompoundWords": true,
   "cSpell.ignorePaths": ["**/.git/**", "**/node_modules/**", "**/miniprogram_npm/**", "**/dist/**"],
-  "cSpell.words": ["datong", "prettierrc", "weapp", "weui", "wxml", "wxs", "wxss"]
+  "cSpell.words": ["datong", "prettierrc", "tdesign", "weapp", "weui", "wxml", "wxs", "wxss"]
 }
