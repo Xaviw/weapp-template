@@ -12,7 +12,9 @@
   "permission": {},
 
   "debug": false,
-  "resolveAlias": {},
+  "resolveAlias": {
+    "@/*": "/*"
+  },
   "networkTimeout": {
     "request": 60000,
     "connectSocket": 60000,
