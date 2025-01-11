@@ -10,9 +10,9 @@
 
 1. 微信开发者工具中安装插件
 2. 安装插件支持的 npm 包版本（`eslint@7`），相关包也需要降级
-3. 配置 `.eslintrc.cjs`
+3. 配置 `.eslintrc.cjs`，设置小程序全局变量，设置 wxs 文件校验规则
 4. 编辑器配置中开启保存时自动修复，以及对 `.wxs` 格式支持
-5. `package.json` 中添加 `lint` 和 `lint:fix` 命令，以及 lint-staged 配置
+5. `package.json` 中添加 `lint` 命令，以及 lint-staged 配置
 
 ## Prettier
 
@@ -21,7 +21,8 @@
 3. 配置 `.prettierrc.cjs`，并为 `.wxs`、`.wxml`、`.wxss` 格式指定解析器
 4. 配置 `.prettierignore` 文件
 5. 编辑器配置中设置 prettier 为各文件的默认格式化器，以及开启对 `.wxs`、`.wxml`、`.wxss` 格式支持
-6. `package.json` 中添加 `format` 命令，以及 lint-staged 配置
+6. 通过 patch-package 修改 prettier 源码，让 htmlWhitespaceSensitivity 配置能够正确应用到小程序标签，让 wxs 标签格式化规则同 script 标签
+7. `package.json` 中添加 `format` 命令，以及 lint-staged 配置
 
 ## Anim 框架
 

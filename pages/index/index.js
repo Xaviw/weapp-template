@@ -6,13 +6,13 @@ Anim.Page({
   store: {
     UserStore,
   },
-  onLoad() {
-    console.log(UserStore.isLogin());
-  },
-  toUpper() {
-    console.log('toUpper');
-  },
-  toLower() {
-    console.log('toLower');
+  onLoad() {},
+
+  navigate(e) {
+    const { type } = e.currentTarget.dataset;
+    const pages = ['/pages/scroll-view/index', '/pages/font/index', '/pages/html-whitespace-sensitivity/index'];
+    wx.navigateTo({
+      url: pages[type],
+    });
   },
 });

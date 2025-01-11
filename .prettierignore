@@ -7,3 +7,4 @@ miniprogram_npm
 *.log
 *ignore
 .gitattributes
+*.patch

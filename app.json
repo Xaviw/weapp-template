@@ -1,16 +1,19 @@
 {
-  "pages": ["pages/index/index", "pages/sub/index"],
+  "pages": [
+    "pages/index/index",
+    "pages/scroll-view/index",
+    "pages/font/index",
+    "pages/html-whitespace-sensitivity/index"
+  ],
   "subPackages": [],
   "usingComponents": {
     "t-button": "tdesign-miniprogram/button/button",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-navbar": "tdesign-miniprogram/navbar/navbar"
   },
-
   "requiredBackgroundModes": [],
   "requiredPrivateInfos": [],
   "permission": {},
-
   "debug": false,
   "resolveAlias": {
     "@/*": "/*"
@@ -21,13 +24,18 @@
     "uploadFile": 60000,
     "downloadFile": 60000
   },
-
-  "window": {},
+  "window": {
+    "navigationStyle": "custom"
+  },
   "renderer": "webview",
   "rendererOptions": {
-    "skyline": {}
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "tagNameStyleIsolation": "legacy",
+      "enableScrollViewAutoSize": true,
+      "defaultContentBox": true
+    }
   },
-
   "componentFramework": "glass-easel",
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"

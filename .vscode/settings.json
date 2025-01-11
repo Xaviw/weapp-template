@@ -11,7 +11,7 @@
   "editor.formatOnSave": true,
 
   // eslint
-  "eslint.probe": ["javascript", "typescript", "wxs"],
+  "eslint.probe": ["javascript", "wxs"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
@@ -49,7 +49,8 @@
 
   // 支持注释的 json 文件映射为 jsonc，避免报错
   "files.associations": {
-    "settings.json": "jsonc"
+    "settings.json": "jsonc",
+    "project.private.config.json": "jsonc"
   },
 
   // 拼写检查插件，需要手动安装微信开发者工具可用的版本
@@ -57,5 +58,21 @@
   "cSpell.enableFiletypes": ["wxml", "wxs", "wxss"],
   "cSpell.allowCompoundWords": true,
   "cSpell.ignorePaths": ["**/.git/**", "**/node_modules/**", "**/miniprogram_npm/**", "**/dist/**"],
-  "cSpell.words": ["datong", "prettierrc", "tdesign", "weapp", "weui", "wxml", "wxs", "wxss"]
+  "cSpell.words": [
+    "bindscrolltolower",
+    "datong",
+    "ongesture",
+    "onscrollupdate",
+    "otheve",
+    "prettierrc",
+    "rumt",
+    "scrolltoupper",
+    "tdesign",
+    "weapp",
+    "webp",
+    "weui",
+    "wxml",
+    "wxs",
+    "wxss"
+  ]
 }

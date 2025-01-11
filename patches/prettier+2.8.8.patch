@@ -1,0 +1,207 @@
+diff --git a/node_modules/prettier/index.js b/node_modules/prettier/index.js
+index 75a972b..11ab6a1 100644
+--- a/node_modules/prettier/index.js
++++ b/node_modules/prettier/index.js
+@@ -22959,7 +22959,7 @@ var require_html = __commonJS2({
+             if (component) {
+               component = uncookTemplateElementValue(component);
+               if (options.__embeddedInHtml) {
+-                component = component.replace(/<\/(script)\b/gi, "<\\/$1");
++                component = component.replace(/<\/(wxs)\b/gi, "<\\/$1");
+               }
+               parts.push(component);
+             }
+@@ -34184,97 +34184,19 @@ var require_constants_evaluate2 = __commonJS2({
+   "src/language-html/constants.evaluate.js"(exports2, module2) {
+     module2.exports = {
+       CSS_DISPLAY_TAGS: {
+-        area: "none",
+-        base: "none",
+-        basefont: "none",
+-        datalist: "none",
+-        head: "none",
+-        link: "none",
+-        meta: "none",
+-        noembed: "none",
+-        noframes: "none",
+-        param: "block",
+-        rp: "none",
+-        script: "block",
+-        source: "block",
+-        style: "none",
+-        template: "inline",
+-        track: "block",
+-        title: "none",
+-        html: "block",
+-        body: "block",
+-        address: "block",
+-        blockquote: "block",
+-        center: "block",
+-        div: "block",
+-        figure: "block",
+-        figcaption: "block",
+-        footer: "block",
+-        form: "block",
+-        header: "block",
+-        hr: "block",
+-        legend: "block",
+-        listing: "block",
+-        main: "block",
+-        p: "block",
+-        plaintext: "block",
+-        pre: "block",
+-        xmp: "block",
+-        slot: "contents",
+-        ruby: "ruby",
+-        rt: "ruby-text",
+-        article: "block",
+-        aside: "block",
+-        h1: "block",
+-        h2: "block",
+-        h3: "block",
+-        h4: "block",
+-        h5: "block",
+-        h6: "block",
+-        hgroup: "block",
+-        nav: "block",
+-        section: "block",
+-        dir: "block",
+-        dd: "block",
+-        dl: "block",
+-        dt: "block",
+-        ol: "block",
+-        ul: "block",
+-        li: "list-item",
+-        table: "table",
+-        caption: "table-caption",
+-        colgroup: "table-column-group",
+-        col: "table-column",
+-        thead: "table-header-group",
+-        tbody: "table-row-group",
+-        tfoot: "table-footer-group",
+-        tr: "table-row",
+-        td: "table-cell",
+-        th: "table-cell",
+-        fieldset: "block",
++        text: "inline",
++        span: "inline",
+         button: "inline-block",
+-        details: "block",
+-        summary: "block",
+-        dialog: "block",
+-        meter: "inline-block",
+-        progress: "inline-block",
+-        object: "inline-block",
+-        video: "inline-block",
+-        audio: "inline-block",
+-        select: "inline-block",
+-        option: "block",
+-        optgroup: "block"
+-      },
+-      CSS_DISPLAY_DEFAULT: "inline",
+-      CSS_WHITE_SPACE_TAGS: {
+-        listing: "pre",
+-        plaintext: "pre",
+-        pre: "pre",
+-        xmp: "pre",
+-        nobr: "nowrap",
+-        table: "initial",
+-        textarea: "pre-wrap"
++        icon: "inline-block",
++        checkbox: "inline-block",
++        input: "inline-block",
++        radio: "inline-block",
++        switch: "inline-block",
++        navigator: "inline",
++        image: "inline-block"
+       },
++      CSS_DISPLAY_DEFAULT: "block",
++      CSS_WHITE_SPACE_TAGS: {},
+       CSS_WHITE_SPACE_DEFAULT: "normal"
+     };
+   }
+@@ -34364,7 +34286,7 @@ var require_utils11 = __commonJS2({
+       return node.type === "text" || node.type === "comment";
+     }
+     function isScriptLikeTag(node) {
+-      return node.type === "element" && (node.fullName === "script" || node.fullName === "style" || node.fullName === "svg:style" || isUnknownNamespace(node) && (node.name === "script" || node.name === "style"));
++      return node.type === "element" && (node.fullName === "wxs" || node.fullName === "style" || node.fullName === "svg:style" || isUnknownNamespace(node) && (node.name === "wxs" || node.name === "style"));
+     }
+     function canHaveInterpolation(node) {
+       return node.children && !isScriptLikeTag(node);
+@@ -34431,7 +34353,7 @@ var require_utils11 = __commonJS2({
+       return isFrontMatterNode(node) || node.next && node.sourceSpan.end && node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line;
+     }
+     function forceBreakContent(node) {
+-      return forceBreakChildren(node) || node.type === "element" && node.children.length > 0 && (["body", "script", "style"].includes(node.name) || node.children.some((child) => hasNonTextChild(child))) || node.firstChild && node.firstChild === node.lastChild && node.firstChild.type !== "text" && hasLeadingLineBreak(node.firstChild) && (!node.lastChild.isTrailingSpaceSensitive || hasTrailingLineBreak(node.lastChild));
++      return forceBreakChildren(node) || node.type === "element" && node.children.length > 0 && (["body", "wxs", "style"].includes(node.name) || node.children.some((child) => hasNonTextChild(child))) || node.firstChild && node.firstChild === node.lastChild && node.firstChild.type !== "text" && hasLeadingLineBreak(node.firstChild) && (!node.lastChild.isTrailingSpaceSensitive || hasTrailingLineBreak(node.lastChild));
+     }
+     function forceBreakChildren(node) {
+       return node.type === "element" && node.children.length > 0 && (["html", "head", "ul", "ol", "select"].includes(node.name) || node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell");
+@@ -34458,7 +34380,7 @@ var require_utils11 = __commonJS2({
+         case "directive":
+           return true;
+         case "element":
+-          return ["script", "select"].includes(node.name);
++          return ["wxs", "select"].includes(node.name);
+       }
+       return false;
+     }
+@@ -34510,7 +34432,7 @@ var require_utils11 = __commonJS2({
+       }
+     }
+     function inferScriptParser(node, options) {
+-      if (node.name === "script" && !node.attrMap.src) {
++      if (node.name === "wxs" && !node.attrMap.src) {
+         if (!node.attrMap.lang && !node.attrMap.type) {
+           return "babel";
+         }
+@@ -34588,7 +34510,7 @@ var require_utils11 = __commonJS2({
+           if (options.parser === "vue" && node.parent && node.parent.type === "root") {
+             return "block";
+           }
+-          return node.type === "element" && (!node.namespace || isInSvgForeignObject || isUnknownNamespace(node)) && CSS_DISPLAY_TAGS[node.name] || CSS_DISPLAY_DEFAULT;
++          return node.type === "element" && (!node.namespace || isInSvgForeignObject || isUnknownNamespace(node)) && CSS_DISPLAY_TAGS[node.name] || (node.type === "interpolation" && "inline") || CSS_DISPLAY_DEFAULT;
+         }
+       }
+     }
+@@ -36059,7 +35981,7 @@ var require_tag = __commonJS2({
+         const attribute = attributePath.getValue();
+         return hasPrettierIgnoreAttribute(attribute) ? replaceTextEndOfLine(options.originalText.slice(locStart(attribute), locEnd(attribute))) : print();
+       }, "attrs");
+-      const forceNotToBreakAttrContent = node.type === "element" && node.fullName === "script" && node.attrs.length === 1 && node.attrs[0].fullName === "src" && node.children.length === 0;
++      const forceNotToBreakAttrContent = node.type === "element" && node.fullName === "wxs" && node.attrs.length === 1 && node.attrs[0].fullName === "src" && node.children.length === 0;
+       const shouldPrintAttributePerLine = options.singleAttributePerLine && node.attrs.length > 1 && !isVueSfcBlock(node, options);
+       const attributeLine = shouldPrintAttributePerLine ? hardline : line;
+       const parts = [indent([forceNotToBreakAttrContent ? " " : line, join(attributeLine, printedAttributes)])];
+@@ -36610,7 +36532,29 @@ var require_embed4 = __commonJS2({
+               }
+             }
+           }
+-          return group(parts);
++          const result = [];
++          function flatString(list) {
++            const data = Array.isArray(list) ? list : [list];
++            data.forEach((item) => {
++              const len = result.length;
++              if (typeof item === "string") {
++                if (["[", "]"].includes(item) || item.startsWith(".")) {
++                  while (result[len - 1] === " ") {
++                    result.pop();
++                  }
++                }
++                result.push(item);
++              } else if (["line", "hardline"].includes(item?.type)) {
++                if (!["[", "]"].includes(result[len - 1])) {
++                  result.push(" ");
++                }
++              } else {
++                flatString(item?.contents || item);
++              }
++            });
++          }
++          flatString(parts);
++          return group(result);
+         }
+       }
+       return null;

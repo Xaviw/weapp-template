@@ -20,7 +20,8 @@
     "compileHotReLoad": false,
     "skylineRenderEnable": true,
     "es6": true,
-    "swc": false
+    "swc": false,
+    "compileWorklet": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -35,5 +36,6 @@
     "ignore": [],
     "include": []
   },
-  "appid": "wx6240d984c989275c"
+  "appid": "wx6240d984c989275c",
+  "projectname": "weapp-template"
 }
