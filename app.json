@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/scroll-view/index",
     "pages/font/index",
-    "pages/html-whitespace-sensitivity/index"
+    "pages/html-whitespace-sensitivity/index",
+    "pages/map/index"
   ],
   "subPackages": [],
   "usingComponents": {

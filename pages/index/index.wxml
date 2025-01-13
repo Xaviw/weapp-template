@@ -2,3 +2,4 @@
 <button bind:tap="navigate" data-type="0">scroll-view</button>
 <button bind:tap="navigate" data-type="1">font</button>
 <button bind:tap="navigate" data-type="2">htmlWhitespaceSensitivity</button>
+<button bind:tap="navigate" data-type="3">map</button>

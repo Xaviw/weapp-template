@@ -10,7 +10,7 @@
 
 1. 微信开发者工具中安装插件
 2. 安装插件支持的 npm 包版本（`eslint@7`），相关包也需要降级
-3. 配置 `.eslintrc.cjs`，设置小程序全局变量，设置 wxs 文件校验规则
+3. 配置 `.eslintrc.cjs`，包括 ignore 配置；设置小程序全局变量，单独设置 wxs 文件校验规则
 4. 编辑器配置中开启保存时自动修复，以及对 `.wxs` 格式支持
 5. `package.json` 中添加 `lint` 命令，以及 lint-staged 配置
 

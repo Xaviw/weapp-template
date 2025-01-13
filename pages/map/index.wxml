@@ -1,0 +1,21 @@
+<map
+  id="map"
+  class="map"
+  longitude="{{ longitude }}"
+  latitude="{{ latitude }}"
+  bindmarkertap="onMarkerTap"
+  bindcallouttap="onCalloutTap"
+  bindlabeltap="onLabelTap"
+  markers="{{ markers }}"
+>
+  <cover-view slot="callout">
+    <cover-view
+      wx:for="{{ markers }}"
+      wx:key="id"
+      marker-id="{{ item.id }}"
+      style="padding: 16rpx; background-color: #ffb6c1"
+    >
+      {{ item.callout.content }}-{{ index }}
+    </cover-view>
+  </cover-view>
+</map>
