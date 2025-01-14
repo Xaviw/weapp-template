@@ -10,13 +10,7 @@ Anim.Page({
 
   navigate(e) {
     const { type } = e.currentTarget.dataset;
-    const pages = [
-      '/pages/scroll-view/index',
-      '/pages/font/index',
-      '/pages/html-whitespace-sensitivity/index',
-      '/pages/map/index',
-      '/pages/text-collapse/index',
-    ];
+    const pages = ['/pages/scroll-view/index', '/pages/font/index', '/pages/map/index', '/pages/text-collapse/index'];
     wx.navigateTo({
       url: pages[type],
     });
