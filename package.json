@@ -36,7 +36,7 @@
     "pre-commit": "npx --no-install lint-staged"
   },
   "lint-staged": {
-    "!(*.{js,wxs})": "prettier --write",
+    "*.{wxml,wxss,scss,less,json,md}": "prettier --write",
     "*.{js,wxs}": [
       "eslint --fix",
       "prettier --write"

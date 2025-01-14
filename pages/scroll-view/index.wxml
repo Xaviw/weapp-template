@@ -1,6 +1,16 @@
-<t-navbar title="标题文字" left-arrow />
+<t-navbar title="标题" left-arrow />
 
 <scroll-view scroll-y style="flex-grow: 1; min-height: 0" bind:scrolltoupper="toUpper" bindscrolltolower="toLower">
+  <!-- flex 演示 -->
+  <view style="display: flex; margin: 20px; background-color: aqua">
+    <view style="width: 300rpx">固定300rpx</view>
+
+    <view style="flex: 1; background-color: aquamarine">
+      flex:1
+      <view style="width: 1000px; background-color: brown">子元素过大，父元素被撑开</view>
+    </view>
+  </view>
+
   <view>1</view>
   <view>2</view>
   <view>3</view>
