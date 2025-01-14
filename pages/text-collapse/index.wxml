@@ -1,0 +1,23 @@
+<t-navbar title="标题" left-arrow />
+
+<collapse-text
+  content-class="content-class"
+  trigger-class="trigger-class"
+  content="在这个璀璨的夜晚，星空闪烁着点点微光，仿佛是天空中散落的珍珠。微风拂过，带着淡淡的清香，让人心旷神怡。远处的树影婆娑，似乎在低声述说着岁月的沧桑。夜色中，一只独自飞翔的蝙蝠划过天际，它的身影在月光下显得格外孤寂。"
+/>
+
+<view style="height: 20px"></view>
+
+<collapse-text
+  content-class="content-class"
+  trigger-class="trigger-class"
+  content="在这个璀璨的夜晚，星空闪烁着点点微光，仿佛是天空中散落的珍珠。微风拂过，带着淡淡的清香，让人心旷神怡。\n远处的树影婆娑，似乎在低声述说着岁月的沧桑。夜色中，一只独自飞翔的蝙蝠划过天际，它的身影在月光下显得格外孤寂。"
+/>
+
+<view style="height: 20px"></view>
+
+<collapse-text
+  content-class="content-class"
+  trigger-class="trigger-class"
+  content="在这个璀璨的夜晚，星空闪烁着点点微光，仿佛是天空中散落的珍珠。微风拂过，带着淡淡的清香，让人心旷神怡。"
+/>

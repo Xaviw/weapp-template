@@ -15,6 +15,7 @@ Anim.Page({
       '/pages/font/index',
       '/pages/html-whitespace-sensitivity/index',
       '/pages/map/index',
+      '/pages/text-collapse/index',
     ];
     wx.navigateTo({
       url: pages[type],

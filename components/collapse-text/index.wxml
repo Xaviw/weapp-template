@@ -1,0 +1,28 @@
+<view class="wrapper">
+  <text
+    class="text content-class {{ collapsed && 'ellipsis' }}"
+    style="line-height: {{ lineHeight }};-webkit-line-clamp:{{ rows }}"
+    ><text style="float: right; height: {{ collapsed ? collapsedTop : top }};"></text
+    ><text wx:if="{{ showTrigger }}" class="float" style="width: {{ triggerWidth }};height: {{ lineHeight }}em;"></text
+    >{{ content }}</text
+  >
+
+  <view
+    wx:if="{{ showTrigger }}"
+    class="trigger trigger-class"
+    style="line-height: {{ lineHeight }};"
+    bind:tap="onTriggerTap"
+  >
+    {{ collapsed ? '展开' : '收起' }}
+    <t-icon name="{{ collapsed ? 'chevron-down' : 'chevron-up' }}" />
+  </view>
+</view>
+
+<view class="hidden wrapper">
+  <text class="text {{ class }}" style="line-height: {{ lineHeight }};">{{ content }}</text>
+
+  <view class="trigger trigger-class" style="line-height: {{ lineHeight }};">
+    展开
+    <t-icon name="chevron-down" />
+  </view>
+</view>
