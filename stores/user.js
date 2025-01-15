@@ -1,6 +1,8 @@
+const USER_STORAGE_KEY = 'user-info';
+
 class UserStore {
   data = {
-    userInfo: null,
+    userInfo: wx.getStorageSync(USER_STORAGE_KEY),
   };
 
   isLogin() {
@@ -11,6 +13,10 @@ class UserStore {
     this.data.userInfo = userInfo;
     this.updateApp();
   }
+
+  login() {}
+
+  logout() {}
 }
 
 export default new UserStore();

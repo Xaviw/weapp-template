@@ -1,7 +1,3 @@
-/**
- * Anim 文档：http://digital.ssv.tencent.com/@ssv-lab/anim/
- */
-
 import Anim from '@ssv-lab/anim';
 import DatongPlugin from '@ssv-lab/anim-plugin-datong';
 // import CryptoPlugin from '@ssv-lab/anim-plugin-api-encrypt';
@@ -9,7 +5,7 @@ import DatongPlugin from '@ssv-lab/anim-plugin-datong';
 // import GrayPlugin from '@ssv-lab/anim-plugin-api-gray';
 
 // eslint-disable-next-line no-unused-vars
-import { env, config } from '../config';
+import { env, config } from '@/config';
 
 export function initAnim() {
   Anim.use(DatongPlugin, {

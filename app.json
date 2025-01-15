@@ -1,13 +1,18 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/scroll-view/index",
-    "pages/font/index",
-    "pages/html-whitespace-sensitivity/index",
-    "pages/map/index",
-    "pages/text-collapse/index"
+  "pages": ["pages/index/index", "pages/login/index"],
+  "subPackages": [
+    {
+      "name": "demo",
+      "root": "demo",
+      "pages": [
+        "pages/scroll-view/index",
+        "pages/font/index",
+        "pages/html-whitespace-sensitivity/index",
+        "pages/map/index",
+        "pages/text-collapse/index"
+      ]
+    }
   ],
-  "subPackages": [],
   "usingComponents": {
     "t-button": "tdesign-miniprogram/button/button",
     "t-icon": "tdesign-miniprogram/icon/icon",

@@ -1,5 +1,6 @@
-<t-navbar fixed="{{ false }}" style="--td-navbar-bg-color: transparent" />
-<button bind:tap="navigate" data-type="0">scroll-view</button>
-<button bind:tap="navigate" data-type="1">font</button>
-<button bind:tap="navigate" data-type="2">map</button>
-<button bind:tap="navigate" data-type="3">collapse-text</button>
+<t-navbar />
+<button bind:tap="navigate" data-type="0">login</button>
+<button bind:tap="navigate" data-type="1">scroll-view</button>
+<button bind:tap="navigate" data-type="2">font</button>
+<button bind:tap="navigate" data-type="3">map</button>
+<button bind:tap="navigate" data-type="4">collapse-text</button>

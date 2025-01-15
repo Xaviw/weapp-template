@@ -59,6 +59,7 @@
   "cSpell.allowCompoundWords": true,
   "cSpell.ignorePaths": ["**/.git/**", "**/node_modules/**", "**/miniprogram_npm/**", "**/dist/**"],
   "cSpell.words": [
+    "Demibold",
     "bindscrolltolower",
     "datong",
     "ongesture",

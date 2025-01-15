@@ -1,0 +1,3 @@
+<t-navbar title="登录" />
+
+<t-button open-type="getPhoneNumber" bindgetphonenumber="handleLogin" loading="{{ loading }}">手机号登录</t-button>

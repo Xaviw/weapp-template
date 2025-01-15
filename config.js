@@ -1,11 +1,12 @@
 const configs = {
   // 开发环境
   develop: {
-    appId: '',
-    rumId: '',
-    host: '',
-    socket: '',
-    cdn: '',
+    appId: 'wx8f1fde6d214dd86f',
+    rumId: 'p0x7mskrgjX58jO1ly',
+    host: 'https://api-dev.community-platform.qq.com',
+    socket: 'wss://api-dev.community-platform.qq.com',
+    // cdn: 'https://cdn-public-dev.community-platform.qq.com',
+    cdn: 'https://cdn-public-test.community-platform.qq.com',
   },
   // 体验（测试）环境
   trial: {
