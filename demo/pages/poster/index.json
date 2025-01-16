@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "canvas-poster": "/components/canvas-poster/index"
+  }
+}
