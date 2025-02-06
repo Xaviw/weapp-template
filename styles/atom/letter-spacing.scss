@@ -1,0 +1,5 @@
+@for $i from -16 through 16 {
+  .spacing-#{$i} {
+    letter-spacing: #{$i}rpx;
+  }
+}

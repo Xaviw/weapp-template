@@ -1,0 +1,63 @@
+@import '../variables.scss';
+
+$variables: (
+  spacer: $spacer,
+  spacer-1: $spacer-1,
+  spacer-2: $spacer-2,
+  spacer-3: $spacer-3,
+  spacer-4: $spacer-4,
+  spacer-5: $spacer-5,
+  spacer-6: $spacer-6,
+);
+
+@each $name, $value in $variables {
+  .p-#{$name} {
+    padding: #{$value};
+  }
+  // .px-#{$name} {
+  //   padding-left: #{$value};
+  //   padding-right: #{$value};
+  // }
+  // .py-#{$name} {
+  //   padding-top: #{$value};
+  //   padding-bottom: #{$value};
+  // }
+  .pt-#{$name} {
+    padding-top: #{$value};
+  }
+  .pr-#{$name} {
+    padding-right: #{$value};
+  }
+  .pb-#{$name} {
+    padding-bottom: #{$value};
+  }
+  .pl-#{$name} {
+    padding-left: #{$value};
+  }
+}
+
+@for $i from 0 through 375 {
+  .p-#{$i} {
+    padding: #{$i}rpx;
+  }
+  // .px-#{$i} {
+  //   padding-left: #{$i}rpx;
+  //   padding-right: #{$i}rpx;
+  // }
+  // .py-#{$i} {
+  //   padding-top: #{$i}rpx;
+  //   padding-bottom: #{$i}rpx;
+  // }
+  .pt-#{$i} {
+    padding-top: #{$i}rpx;
+  }
+  .pr-#{$i} {
+    padding-right: #{$i}rpx;
+  }
+  .pb-#{$i} {
+    padding-bottom: #{$i}rpx;
+  }
+  .pl-#{$i} {
+    padding-left: #{$i}rpx;
+  }
+}

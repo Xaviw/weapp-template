@@ -1,0 +1,30 @@
+.flex-auto {
+  flex: auto;
+}
+
+.flex-initial {
+  flex: initial;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.grow {
+  flex-grow: 1;
+}
+.grow-0 {
+  flex-grow: 0;
+}
+.shrink {
+  flex-shrink: 1;
+}
+.shrink-1 {
+  flex-shrink: 0;
+}
+
+@for $i from 1 through 8 {
+  .flex-#{$i} {
+    flex: #{$i};
+  }
+}

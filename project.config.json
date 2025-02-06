@@ -31,11 +31,9 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "libVersion": "2.32.3",
+  "appid": "wx8f1fde6d214dd86f",
   "packOptions": {
     "ignore": [],
     "include": []
-  },
-  "appid": "wx8f1fde6d214dd86f",
-  "projectname": "weapp-template"
+  }
 }

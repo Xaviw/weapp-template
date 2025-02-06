@@ -1,0 +1,18 @@
+// @for $i from 0 through 375 {
+//   .w-#{$i} {
+//     width: #{$i}rpx;
+//   }
+// }
+
+.w-0 {
+  width: 0px;
+}
+.w-screen {
+  width: 100vw;
+}
+.w-full {
+  width: 100%;
+}
+.w-auto {
+  width: auto;
+}

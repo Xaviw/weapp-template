@@ -1,0 +1,29 @@
+.border {
+  border-width: 1px;
+}
+
+@for $i from 0 through 24 {
+  .border-#{$i} {
+    border-width: #{$i}px;
+  }
+  .border-t-#{$i} {
+    border-top-width: #{$i}px;
+  }
+  .border-r-#{$i} {
+    border-right-width: #{$i}px;
+  }
+  .border-b-#{$i} {
+    border-bottom-width: #{$i}px;
+  }
+  .border-l-#{$i} {
+    border-left-width: #{$i}px;
+  }
+  // .border-x-#{$i} {
+  //   border-right-width: #{$i}px;
+  //   border-left-width: #{$i}px;
+  // }
+  // .border-y-#{$i} {
+  //   border-bottom-width: #{$i}px;
+  //   border-top-width: #{$i}px;
+  // }
+}

@@ -1,0 +1,22 @@
+$h: 1;
+
+@while $h<=2 {
+  $string: #{$h};
+  $i: str-index($string, '.');
+
+  $int: $string;
+  @if $i {
+    $int: str-slice($string, 0, $i - 1);
+  }
+
+  $flo: '';
+  @if $i {
+    $flo: '_' + str-slice($string, $i + 1, -1);
+  }
+
+  .leading-#{$int + $flo} {
+    line-height: #{$h};
+  }
+
+  $h: $h + 0.05;
+}

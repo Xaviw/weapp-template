@@ -1,0 +1,97 @@
+@import './variables.scss';
+
+$brandColors: (
+  brand: $brand-color,
+  brand-active: $brand-color-active,
+  brand-disabled: $brand-color-disabled,
+  brand-focus: $brand-color-focus,
+  brand-light: $brand-color-light,
+  brand-light-active: $brand-color-light-active,
+
+  error: $error-color,
+  error-active: $error-color-active,
+  error-disabled: $error-color-disabled,
+  error-focus: $error-color-focus,
+  error-light: $error-color-light,
+
+  warning: $warning-color,
+  warning-active: $warning-color-active,
+  warning-disabled: $warning-color-disabled,
+  warning-focus: $warning-color-focus,
+  warning-light: $warning-color-light,
+
+  success: $success-color,
+  success-active: $success-color-active,
+  success-disabled: $success-color-disabled,
+  success-focus: $success-color-focus,
+  success-light: $success-color-light,
+
+  black: #000000,
+  white: #ffffff,
+);
+
+@each $name, $color in $brandColors {
+  .text-#{$name} {
+    color: #{$color};
+  }
+
+  .bg-#{$name} {
+    background-color: #{$color};
+  }
+
+  .border-#{$name} {
+    border-color: #{$color};
+  }
+}
+
+$fontColors: (
+  primary: $text-color-primary,
+  secondary: $text-color-secondary,
+  placeholder: $text-color-placeholder,
+  disabled: $text-color-disabled,
+  anti: $text-color-anti,
+  link: $text-color-link,
+);
+
+@each $name, $color in $fontColors {
+  .text-#{$name} {
+    color: #{$color};
+  }
+}
+
+$bgColors: (
+  page: $bg-color-page,
+  container: $bg-color-container,
+  container-active: $bg-color-container-active,
+
+  secondarycontainer: $bg-color-secondarycontainer,
+  secondarycontainer-active: $bg-color-secondarycontainer-active,
+
+  component: $bg-color-component,
+  component-active: $bg-color-component-active,
+  component-disabled: $bg-color-component-disabled,
+
+  secondarycomponent: $bg-color-secondarycomponent,
+  secondarycomponent-active: $bg-color-secondarycomponent-active,
+
+  component-stroke: $component-stroke,
+  component-border: $component-border,
+);
+
+@each $name, $color in $bgColors {
+  .bg-#{$name} {
+    background-color: #{$color};
+  }
+}
+
+$borderColors: (
+  color: $border-color,
+  color-1: $border-level-1-color,
+  color-2: $border-level-2-color,
+);
+
+@each $name, $color in $borderColors {
+  .border-#{$name} {
+    border-color: #{$color};
+  }
+}

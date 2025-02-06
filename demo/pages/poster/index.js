@@ -2,8 +2,6 @@ Page({
   onReady() {
     const poster = this.selectComponent('#poster');
     poster.render({
-      width: 350,
-      height: 800,
       backgroundColor: '#ff0000',
       elements: [
         {
@@ -22,11 +20,12 @@ Page({
           x: 10,
           y: 110,
           fontSize: 22,
-          color: '#eeeeee',
+          color: '#fff000',
           textAlign: 'center',
           text: '这是一段测试文本，这是一段测试文本，这是一段测试文本',
           lineNum: 2,
           lineHeight: 1.5,
+          width: 300,
         },
       ],
     });

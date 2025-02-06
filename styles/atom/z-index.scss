@@ -1,0 +1,13 @@
+@for $i from -10 through 10 {
+  .z-#{$i} {
+    z-index: #{$i};
+  }
+}
+
+$z-values: (99, 999, 9999, 99999, 999999);
+
+@each $z in $z-values {
+  .z-#{$z} {
+    z-index: $z;
+  }
+}

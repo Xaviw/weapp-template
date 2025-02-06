@@ -1,0 +1,63 @@
+@import '../variables.scss';
+
+$variables: (
+  spacer: $spacer,
+  spacer-1: $spacer-1,
+  spacer-2: $spacer-2,
+  spacer-3: $spacer-3,
+  spacer-4: $spacer-4,
+  spacer-5: $spacer-5,
+  spacer-6: $spacer-6,
+);
+
+@each $name, $value in $variables {
+  .m-#{$name} {
+    margin: #{$value};
+  }
+  // .mx-#{$name} {
+  //   margin-left: #{$value};
+  //   margin-right: #{$value};
+  // }
+  // .my-#{$name} {
+  //   margin-top: #{$value};
+  //   margin-bottom: #{$value};
+  // }
+  .mt-#{$name} {
+    margin-top: #{$value};
+  }
+  .mr-#{$name} {
+    margin-right: #{$value};
+  }
+  .mb-#{$name} {
+    margin-bottom: #{$value};
+  }
+  .ml-#{$name} {
+    margin-left: #{$value};
+  }
+}
+
+@for $i from 0 through 375 {
+  .m-#{$i} {
+    margin: #{$i}rpx;
+  }
+  // .mx-#{$i} {
+  //   margin-left: #{$i}rpx;
+  //   margin-right: #{$i}rpx;
+  // }
+  // .my-#{$i} {
+  //   margin-top: #{$i}rpx;
+  //   margin-bottom: #{$i}rpx;
+  // }
+  .mt-#{$i} {
+    margin-top: #{$i}rpx;
+  }
+  .mr-#{$i} {
+    margin-right: #{$i}rpx;
+  }
+  .mb-#{$i} {
+    margin-bottom: #{$i}rpx;
+  }
+  .ml-#{$i} {
+    margin-left: #{$i}rpx;
+  }
+}

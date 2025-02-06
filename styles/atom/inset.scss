@@ -1,0 +1,37 @@
+// $max: 188;
+
+// @for $i from 0 through $max {
+//   .top-#{$i} {
+//     top: #{$i}rpx;
+//   }
+// }
+// @for $i from 0 through $max {
+//   .bottom-#{$i} {
+//     bottom: #{$i}rpx;
+//   }
+// }
+// @for $i from 0 through $max {
+//   .left-#{$i} {
+//     left: #{$i}rpx;
+//   }
+// }
+// @for $i from 0 through $max {
+//   .right-#{$i} {
+//     right: #{$i}rpx;
+//   }
+// }
+
+.inset-0 {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.inset-x-0 {
+  left: 0;
+  right: 0;
+}
+.inset-y-0 {
+  top: 0;
+  bottom: 0;
+}

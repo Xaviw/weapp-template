@@ -1,6 +1,6 @@
 <canvas
   type="2d"
   id="{{ canvasId }}"
-  style="width: {{ width }}px;height: {{ height }}px"
+  style="width: {{ width }};height: {{ height }};"
   class="{{ hidden ? 'hidden' : '' }}"
 ></canvas>

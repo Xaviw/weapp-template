@@ -1,10 +1,18 @@
 /* eslint-disable max-params */
 let id = 0;
-const DEFAULT_WIDTH = 300;
-const DEFAULT_HEIGHT = 150;
+const rpr = wx.getWindowInfo().screenWidth / 750;
+const dpr = wx.getWindowInfo().pixelRatio;
 
 Component({
   properties: {
+    width: {
+      type: String,
+      width: '600rpx',
+    },
+    height: {
+      type: String,
+      height: '300rpx',
+    },
     hidden: {
       type: Boolean,
       value: false,
@@ -12,8 +20,6 @@ Component({
   },
   data: {
     canvasId: `canvas${id++}`,
-    width: DEFAULT_WIDTH,
-    height: DEFAULT_HEIGHT,
   },
   ctx: null,
   methods: {
@@ -22,22 +28,20 @@ Component({
      * @param {*} options
      */
     render(options) {
+      const { backgroundColor, elements = [] } = options;
+
       this.createSelectorQuery()
         .select(`#${this.data.canvasId}`)
-        .node(({ node: canvas }) => {
+        .fields({ node: true, size: true })
+        .exec((res) => {
+          const canvas = res[0].node;
           this.ctx = canvas.getContext('2d');
-          console.log('this.ctx :', this.ctx);
           if (!this.ctx) {
             throw new Error('未获取到 canvas 元素！');
           }
 
-          const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, backgroundColor, elements = [] } = options;
-
-          this.setData({ width, height });
-
-          const dpr = wx.getWindowInfo().pixelRatio;
-          canvas.width = width * dpr;
-          canvas.height = height * dpr;
+          canvas.width = res[0].width * dpr;
+          canvas.height = res[0].height * dpr;
           this.ctx.scale(dpr, dpr);
           this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -49,8 +53,7 @@ Component({
           }
 
           this.draw(elements);
-        })
-        .exec();
+        });
     },
     /**
      * 绘制到 canvas
@@ -69,8 +72,24 @@ Component({
         }
       });
     },
-
+    toPx(rpx, int) {
+      if (int) {
+        return parseInt(rpx * rpr * dpr, 10);
+      }
+      return rpx * rpr * dpr;
+    },
+    toRpx(px, int) {
+      if (int) {
+        return parseInt(px / rpr, 10);
+      }
+      return px / rpr;
+    },
+    /**
+     * 渲染块
+     * @param {Object} params
+     */
     drawBlock({ width = 0, height, x, y, borderWidth, backgroundColor, borderColor, borderRadius = 0, opacity = 1 }) {
+      // 判断是否块内有文字
       if (backgroundColor) {
         // 画面
         this.ctx.save();
@@ -81,7 +100,7 @@ Component({
           this._drawRadiusRect(x, y, width, height, borderRadius);
           this.ctx.fill();
         } else {
-          this.ctx.fillRect(x, y, width, height);
+          this.ctx.fillRect(this.toPx(x), this.toPx(y), this.toPx(width), this.toPx(height));
         }
         this.ctx.restore();
       }
@@ -90,17 +109,50 @@ Component({
         this.ctx.save();
         this.ctx.globalAlpha = opacity;
         this.ctx.strokeStyle = borderColor;
-        this.ctx.lineWidth = borderWidth;
+        this.ctx.lineWidth = this.toPx(borderWidth);
         if (borderRadius > 0) {
           // 画圆角矩形边框
           this._drawRadiusRect(x, y, width, height, borderRadius);
           this.ctx.stroke();
         } else {
-          this.ctx.strokeRect(x, y, width, height);
+          this.ctx.strokeRect(this.toPx(x), this.toPx(y), this.toPx(width), this.toPx(height));
         }
         this.ctx.restore();
       }
     },
+    /**
+     * 画圆角矩形
+     */
+    _drawRadiusRect(x, y, w, h, r) {
+      const br = r / 2;
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.toPx(x + br), this.toPx(y)); // 移动到左上角的点
+      this.ctx.lineTo(this.toPx(x + w - br), this.toPx(y));
+      this.ctx.arc(
+        this.toPx(x + w - br),
+        this.toPx(y + br),
+        this.toPx(br),
+        2 * Math.PI * (3 / 4),
+        2 * Math.PI * (4 / 4),
+      );
+      this.ctx.lineTo(this.toPx(x + w), this.toPx(y + h - br));
+      this.ctx.arc(this.toPx(x + w - br), this.toPx(y + h - br), this.toPx(br), 0, 2 * Math.PI * (1 / 4));
+      this.ctx.lineTo(this.toPx(x + br), this.toPx(y + h));
+      this.ctx.arc(
+        this.toPx(x + br),
+        this.toPx(y + h - br),
+        this.toPx(br),
+        2 * Math.PI * (1 / 4),
+        2 * Math.PI * (2 / 4),
+      );
+      this.ctx.lineTo(this.toPx(x), this.toPx(y + br));
+      this.ctx.arc(this.toPx(x + br), this.toPx(y + br), this.toPx(br), 2 * Math.PI * (2 / 4), 2 * Math.PI * (3 / 4));
+    },
+
+    /**
+     * 渲染文字
+     * @param {Object} params
+     */
     drawText({
       x,
       y,
@@ -120,12 +172,12 @@ Component({
     }) {
       this.ctx.save();
       this.ctx.beginPath();
-      this.ctx.font = fontStyle + ' ' + fontWeight + ' ' + fontSize + 'px ' + fontFamily;
+      this.ctx.font = fontStyle + ' ' + fontWeight + ' ' + this.toPx(fontSize, true) + 'px ' + fontFamily;
       this.ctx.globalAlpha = opacity;
       this.ctx.fillStyle = color;
-      this.ctx.TextBaseline = baseLine;
-      this.ctx.TextAlign = textAlign;
-      let textWidth = this.ctx.measureText(text).width;
+      this.ctx.textBaseline = baseLine;
+      this.ctx.textAlign = textAlign;
+      let textWidth = this.toRpx(this.ctx.measureText(text).width);
       const textArr = [];
       if (textWidth > width) {
         // 文本宽度 大于 渲染宽度
@@ -134,7 +186,7 @@ Component({
         for (let i = 0; i <= text.length - 1; i++) {
           // 将文字转为数组，一行文字一个元素
           fillText = fillText + text[i];
-          if (this.ctx.measureText(fillText).width) {
+          if (this.toRpx(this.ctx.measureText(fillText).width) >= width) {
             if (line === lineNum) {
               if (i !== text.length - 1) {
                 fillText = fillText.substring(0, fillText.length - 1) + '...';
@@ -159,7 +211,7 @@ Component({
       }
 
       textArr.forEach((item, index) => {
-        this.ctx.fillText(item, x, y + (lineHeight || fontSize * index));
+        this.ctx.fillText(item, this.toPx(x), this.toPx(y + (lineHeight || fontSize) * index));
       });
 
       this.ctx.restore();
@@ -190,31 +242,14 @@ Component({
           }
         }
         this.ctx.save();
-        this.ctx.moveTo(x, lineY);
-        this.ctx.lineTo(x + textWidth, lineY);
-        this.ctx.StrokeStyle = color;
+        this.ctx.moveTo(this.toPx(x), this.toPx(lineY));
+        this.ctx.lineTo(this.toPx(x) + this.toPx(textWidth), this.toPx(lineY));
+        this.ctx.strokeStyle = color;
         this.ctx.stroke();
         this.ctx.restore();
       }
 
       return textWidth;
-    },
-
-    /**
-     * 画圆角矩形
-     */
-    _drawRadiusRect(x, y, w, h, r) {
-      const br = r / 2;
-      this.ctx.beginPath();
-      this.ctx.moveTo(x + br, y); // 移动到左上角的点
-      this.ctx.lineTo(x + w - br, y);
-      this.ctx.arc(x + w - br, y + br, br, 2 * Math.PI * (3 / 4), 2 * Math.PI * (4 / 4));
-      this.ctx.lineTo(x + w, y + h - br);
-      this.ctx.arc(x + w - br, y + h - br, br, 0, 2 * Math.PI * (1 / 4));
-      this.ctx.lineTo(x + br, y + h);
-      this.ctx.arc(x + br, y + h - br, br, 2 * Math.PI * (1 / 4), 2 * Math.PI * (2 / 4));
-      this.ctx.lineTo(x, y + br);
-      this.ctx.arc(x + br, y + br, br, 2 * Math.PI * (2 / 4), 2 * Math.PI * (3 / 4));
     },
   },
 });

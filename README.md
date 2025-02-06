@@ -39,3 +39,9 @@
 ## tdesign 组件库
 
 1. 全局启用 icon、button、navbar 组件
+
+## 仿原子化 CSS
+
+1. 通过 scss 语法生成常用的 CSS 原子样式类，单位为 rpx，具体见 `styles/atom` 文件夹
+2. 考虑到生成的 CSS 占用主包体积过大，注释了 `w-数字`、`h-数字`、`mx-数字`、`my-数字`、`px-数字`、`py-数字`、`border-x-数字`、`border-y-数字`，同时调小了值的生成范围
+3. 定义了与 tdesign 一致的变量，以及变量对应的原子类

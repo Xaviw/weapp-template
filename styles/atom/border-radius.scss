@@ -1,0 +1,50 @@
+@import '../variables.scss';
+
+$positions: ('', '-tl', '-tr', '-bl', '-br');
+@each $p in $positions {
+  @for $i from 0 through 24 {
+    .rounded#{$p}-#{$i} {
+      @if $p == '-tl' {
+        border-top-left-radius: #{$i}rpx;
+      } @else if $p == '-tr' {
+        border-top-right-radius: #{$i}rpx;
+      } @else if $p == '-bl' {
+        border-bottom-left-radius: #{$i}rpx;
+      } @else if $p == '-br' {
+        border-bottom-right-radius: #{$i}rpx;
+      } @else {
+        border-radius: #{$i}rpx;
+      }
+    }
+  }
+}
+
+$sizes: (
+  small: $radius-small,
+  default: $radius-default,
+  large: $radius-large,
+  extra-large: $radius-extra-large,
+  round: $radius-round,
+  circle: $radius-circle,
+);
+@each $p in $positions {
+  @each $name, $value in $sizes {
+    .rounded#{$p}-#{$name} {
+      @if $p == '-tl' {
+        border-top-left-radius: $value;
+      } @else if $p == '-tr' {
+        border-top-right-radius: $value;
+      } @else if $p == '-bl' {
+        border-bottom-left-radius: $value;
+      } @else if $p == '-br' {
+        border-bottom-right-radius: $value;
+      } @else {
+        border-radius: $value;
+      }
+    }
+  }
+}
+
+.rounded-full {
+  border-radius: 999px;
+}
