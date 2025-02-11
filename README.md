@@ -30,6 +30,7 @@
 2. 默认开启 “大同埋点” 插件，其他插件按需开启
 3. Anim 构造器自带发布订阅方法：`$on`、`$emit`、`$off`、`$offAll`、`$clear`
 4. `Anim.$utils` 中包含几个实用方法：`getUrlSearch`、`getUrlWithoutSearch`、`urlJoinQuery`、`safeJsonStringify`、`isPlainObject`
+5. 通过 patch-package 修改 anim `index.d.ts` 源码，扩展 `Anim.$datong` 的类型提示
 
 ## 性能监控 - Aegis
 

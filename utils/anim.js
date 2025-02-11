@@ -14,9 +14,13 @@ export function initAnim() {
     pageSelector: '.expose-page',
     exposeSelector: '.expose',
     exposeParentSelector: '.expose-container',
+    autoReport: {
+      page: false,
+      handler: false,
+    },
   });
 
-  // 加密插件，可以通过注释开启
+  // 加密插件
   // if (env === 'release') {
   //   Anim.use(CryptoPlugin, {
   //     publicKeyUrl: `${config.host}/kong/requestEncryption/getPublicKey`,
