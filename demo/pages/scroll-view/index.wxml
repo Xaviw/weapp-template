@@ -2,12 +2,12 @@
 
 <scroll-view scroll-y style="flex-grow: 1; min-height: 0" bind:scrolltoupper="toUpper" bindscrolltolower="toLower">
   <!-- flex 演示 -->
-  <view style="display: flex; margin: 20px; background-color: aqua">
+  <view style="display: flex; margin: 20px" class="bg-brand">
     <view style="width: 300rpx">固定300rpx</view>
 
-    <view style="flex: 1; background-color: aquamarine">
+    <view style="flex: 1" class="bg-warning">
       flex:1
-      <view style="width: 1000px; background-color: brown">子元素过大，父元素被撑开</view>
+      <view style="width: 1000px" class="bg-success">子元素过大，父元素被撑开</view>
     </view>
   </view>
 

@@ -40,6 +40,7 @@
 ## tdesign 组件库
 
 1. 全局启用 icon、button、navbar 组件
+2. 启用[深色模式](https://tdesign.tencent.com/miniprogram/dark-mode)，页面 CSS 要求尽量用 tdesign 变量（或项目的仿原子化 CSS）
 
 ## 仿原子化 CSS
 

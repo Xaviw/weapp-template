@@ -19,6 +19,7 @@
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-navbar": "tdesign-miniprogram/navbar/navbar"
   },
+  "darkmode": true,
   "requiredBackgroundModes": [],
   "requiredPrivateInfos": [],
   "permission": {},
