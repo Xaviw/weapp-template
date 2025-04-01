@@ -1,5 +1,5 @@
 import Anim from '@ssv-lab/anim';
-import { canvasPoster, wxPromisify } from '../../../utils/canvas';
+import { canvasPoster, saveCanvasAsImage, wxPromisify } from '../../../utils/canvas';
 
 const loadFont = wxPromisify(wx.loadFontFace, {
   family: 'Hanalei',
@@ -7,6 +7,8 @@ const loadFont = wxPromisify(wx.loadFontFace, {
 });
 
 Anim.Page({
+  canvas1: null,
+  canvas2: null,
   onReady() {
     const query1 = wx.createSelectorQuery();
     query1
@@ -15,6 +17,7 @@ Anim.Page({
       .exec((res) => {
         /** @type {WechatMiniprogram.Canvas} */
         const canvas1 = res[0].node;
+        this.canvas1 = canvas1;
         const ctx = canvas1.getContext('2d');
 
         const gradient = ctx.createLinearGradient(0, 0, 280, 0);
@@ -165,6 +168,7 @@ Anim.Page({
       .exec((res) => {
         /** @type {WechatMiniprogram.Canvas} */
         const canvas2 = res[0].node;
+        this.canvas2 = canvas2;
         const ctx = canvas2.getContext('2d');
 
         const gradient = ctx.createLinearGradient(0, 0, 280, 0);
@@ -288,5 +292,11 @@ Anim.Page({
           },
         );
       });
+  },
+  onExport1() {
+    saveCanvasAsImage(this.canvas1);
+  },
+  onExport2() {
+    saveCanvasAsImage(this.canvas2);
   },
 });

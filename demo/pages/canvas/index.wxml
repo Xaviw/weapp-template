@@ -1,5 +1,7 @@
 <t-navbar left-arrow />
 
 <canvas id="canvas1" type="2d" style="width: 750rpx; height: 327rpx" />
+<button bind:tap="onExport1">导出</button>
 
 <canvas id="canvas2" type="2d" style="width: 750rpx; height: 327rpx" />
+<button bind:tap="onExport2">导出</button>

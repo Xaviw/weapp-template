@@ -35,5 +35,6 @@
   "packOptions": {
     "ignore": [],
     "include": []
-  }
+  },
+  "libVersion": "2.32.3"
 }
