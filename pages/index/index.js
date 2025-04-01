@@ -16,7 +16,7 @@ Anim.Page({
       '/demo/pages/font/index',
       '/demo/pages/map/index',
       '/demo/pages/text-collapse/index',
-      '/demo/pages/poster/index',
+      '/demo/pages/canvas/index',
     ];
     wx.navigateTo({
       url: pages[type],

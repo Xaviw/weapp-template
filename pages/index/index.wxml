@@ -4,4 +4,4 @@
 <button bind:tap="navigate" data-type="2">font</button>
 <button bind:tap="navigate" data-type="3">map</button>
 <button bind:tap="navigate" data-type="4">collapse-text</button>
-<button bind:tap="navigate" data-type="5">poster</button>
+<button bind:tap="navigate" data-type="5">canvas</button>

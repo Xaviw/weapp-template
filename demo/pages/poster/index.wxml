@@ -1,3 +1,0 @@
-<t-navbar title="海报" left-arrow />
-
-<canvas-poster id="poster" width="750rpx" height="800px" />
