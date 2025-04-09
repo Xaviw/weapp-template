@@ -47,36 +47,9 @@ type PartiallyPartial<T, K extends keyof T> = T & {
   [P in K]?: T[P];
 };
 
-/**
- * 将微信小程序的回调式异步 API 转换为 Promise 形式
- * @param method - 要转换的异步方法（如 wx.request、wx.login 等）
- * @param options - 方法的配置参数（不包含 success、fail 回调）
- * @returns 返回 Promise 对象，resolve 时传入 success 回调的参数，reject 时传入 fail 回调的参数
- * @example
- * ```ts
- * // 转换 wx.login 接口
- * const res = await wxPromisify(wx.login, {})
- * console.log(res.code)
- *
- * // 转换 wx.request 接口
- * const res = await wxPromisify(wx.request, {
- *   url: 'https://api.example.com/data',
- *   method: 'GET'
- * })
- * console.log(res.data)
- * ```
- * @miniprogram
- */
-declare function wxPromisify<M extends Fn>(method: M, options: CallbackifyParams<M>): Promise<CallbackifyResults<M>>;
-
 type Canvas = WechatMiniprogram.Canvas;
 
 type CanvasContext = WechatMiniprogram.CanvasRenderingContext.CanvasRenderingContext2D;
-
-/**
- * poster 绘制项
- */
-type PosterElements = (PosterElement | PosterRenderFunction)[];
 
 /**
  * poster 基础配置
@@ -128,41 +101,25 @@ interface PosterRenderFunction {
 }
 
 /**
+ * 支持数字；或参数为父容器宽度、高度的对象，返回值为数字的函数
+ * @example
+ * ```ts
+ * 10
+ * ({ containerWidth, containerHeight }) => containerWidth * 0.5 + containerHeight * 0.5
+ * ```
+ */
+type NumberWithContainer = number | Fn<[{ containerWidth: number; containerHeight: number }], number>;
+
+/**
  * poster 绘制公共配置
  */
 interface PosterElementCommonOptions {
-  /**
-   * 支持数字或百分比（相对于父容器宽度）
-   */
-  width?: string | number;
-  /**
-   * 支持数字或百分比（相对于父容器高度）
-   */
-  height?: string | number;
-  /**
-   * 支持数字或百分比（相对于父容器高度）
-   * 不存在 height 时，根据 top、bottom 计算高度
-   * 存在 height 时，优先使用 top 定位
-   */
-  top?: string | number;
-  /**
-   * 支持数字或百分比（相对于父容器宽度）
-   * 不存在 width 时，根据 left、right 计算宽度
-   * 存在 width 时，优先使用 left 定位
-   */
-  right?: string | number;
-  /**
-   * 支持数字或百分比（相对于父容器高度）
-   * 不存在 height 时，根据 top、bottom 计算高度
-   * 存在 height 时，优先使用 top 定位
-   */
-  bottom?: string | number;
-  /**
-   * 支持数字或百分比（相对于父容器宽度）
-   * 不存在 width 时，根据 left、right 计算宽度
-   * 存在 width 时，优先使用 left 定位
-   */
-  left?: string | number;
+  width?: NumberWithContainer;
+  height?: NumberWithContainer;
+  top?: NumberWithContainer;
+  right?: NumberWithContainer;
+  bottom?: NumberWithContainer;
+  left?: NumberWithContainer;
   /**
    * 旋转角度，注意旋转不会改变元素盒模型，不会影响子元素相对定位
    */
@@ -180,10 +137,11 @@ interface PosterTextCommonOptions
   extends Pick<PosterElementCommonOptions, 'shadowBlur' | 'shadowColor' | 'shadowOffsetX' | 'shadowOffsetY'> {
   content: string;
   /**
-   * 数值或百分比（相对于文字高度）
-   * @default '120%'
+   * 数值或参数为字体高度，返回值为数值的函数
+   * @default
+   * (h: number) => 1.2 * h
    */
-  lineHeight?: number | string;
+  lineHeight?: number | Fn<[number], number>;
   /**
    * @default 16
    */
@@ -192,6 +150,7 @@ interface PosterTextCommonOptions
    * @default 'sans-serif'
    */
   fontFamily?: string;
+  fontFamilySrc?: string;
   /**
    * @default 'normal'
    */
@@ -231,9 +190,7 @@ interface PosterTextCommonOptions
 /**
  * poster 文本
  */
-interface PosterText
-  extends PosterTextCommonOptions,
-    Omit<PosterElementCommonOptions, 'shadowBlur' | 'shadowColor' | 'shadowOffsetX' | 'shadowOffsetY'> {
+interface PosterText extends PosterTextCommonOptions, PosterElementCommonOptions {
   type: 'text';
   /**
    * 文本内容，支持空格，不支持其他控制字符；为数组时可以分别设置样式
@@ -257,43 +214,57 @@ interface PosterText
 }
 
 /**
+ * 支持数值或参数以容器宽、高，自身宽、高为参数，返回值为数值的函数
+ * @example
+ * ```ts
+ * 10
+ * ({ containerWidth, containerHeight, selfWidth, selfHeight }) => 10
+ * ```
+ */
+type NumberWithContainerAndSelf =
+  | number
+  | Fn<[{ containerWidth: number; containerHeight: number; selfWidth: number; selfHeight: number }], number>;
+
+/**
  * poster 图片
  */
 interface PosterImage
-  extends PosterElementCommonOptions,
-    Pick<
-      PosterRect,
-      'borderColor' | 'borderDash' | 'borderDashOffset' | 'borderRadius' | 'borderSize' | 'borderStyle'
-    > {
+  extends Omit<PosterElementCommonOptions, 'top' | 'right' | 'bottom' | 'left' | 'width' | 'height'>,
+    Pick<PosterRect, 'border' | 'borderRadius'> {
   type: 'image';
   /**
    * 图片链接或 base64
    */
   src: string;
+  width?: NumberWithContainerAndSelf;
+  height?: NumberWithContainerAndSelf;
+  top?: NumberWithContainerAndSelf;
+  right?: NumberWithContainerAndSelf;
+  bottom?: NumberWithContainerAndSelf;
+  left?: NumberWithContainerAndSelf;
   /**
    * 裁剪图片的起点 X 坐标
-   * 支持数值或百分比（相对于图片宽度）
    * @default 0
    */
-  sourceX?: string | number;
+  sourceX?: NumberWithContainerAndSelf;
   /**
    * 裁剪图片的起点 Y 坐标
-   * 支持数值或百分比（相对于图片高度）
    * @default 0
    */
-  sourceY?: string | number;
+  sourceY?: NumberWithContainerAndSelf;
   /**
    * 裁剪图片宽度
-   * 支持数值或百分比（相对于图片宽度）
-   * @default '100%'
+   * @default
+   * ({ imageWidth }) => imageWidth
    */
-  sourceWidth?: string | number;
+  sourceWidth?: NumberWithContainerAndSelf;
   /**
    * 裁剪图片高度
    * 支持数值或百分比（相对于图片高度）
-   * @default '100%'
+   * @default
+   * ({ imageHeight }) => imageHeight
    */
-  sourceHeight?: string | number;
+  sourceHeight?: NumberWithContainerAndSelf;
   /**
    * 仅容器有固定宽高时生效
    * @remarks
@@ -319,22 +290,15 @@ interface PosterImage
 interface PosterRect extends PosterElementCommonOptions {
   type: 'rect';
   backgroundColor?: string | CanvasGradient | CanvasPattern;
+  border?: Pick<
+    PosterLine,
+    'lineCap' | 'lineColor' | 'lineDash' | 'lineDashOffset' | 'lineJoin' | 'lineWidth' | 'miterLimit'
+  >;
   /**
-   * box-sizing: content-box；
-   * borderStyle 为 dashed 时，此值不适合设置较大
+   * 圆角大小
+   * 支持数值或以自身宽、高对象为参数，返回数值的函数
    */
-  borderSize?: number;
-  /**
-   * @default 'solid'
-   */
-  borderStyle?: 'solid' | 'dashed';
-  borderColor?: string | CanvasGradient | CanvasPattern;
-  /**
-   * 支持数字或百分比（相对于自身宽度）
-   */
-  borderRadius?: number | string;
-  borderDash?: number[];
-  borderDashOffset?: number;
+  borderRadius?: NumberWithContainerAndSelf;
 }
 
 /**
@@ -345,9 +309,8 @@ interface PosterLine
   type: 'line';
   /**
    * 线条顶点，可以为 2 个或多个
-   * 支持数字或百分比(相对于容器宽高)
    */
-  points: [number | string, number | string][];
+  points: [NumberWithContainer, NumberWithContainer][];
   /**
    * @default 1
    */
@@ -369,6 +332,41 @@ interface PosterLine
   miterLimit?: number;
 }
 
+type PosterElements = (PosterElement | PosterRenderFunction)[];
+declare class CanvasPoster {
+  /** 画布配置 */
+  private options;
+  /** 绘制项数组 */
+  private configs;
+  /** 绘制项缓存 */
+  private cache;
+  /** 绘制上下文 */
+  private ctx;
+  /** 画布使用的像素比 */
+  private dpr;
+  /** 全部绘制项 */
+  private plugins;
+  /**
+   * @param options - 画布配置
+   */
+  constructor(options: PosterOptions);
+  draw(configs: PosterElements): Promise<void>;
+  /** 递归绘制项，获取相对定位元素盒模型并调用 normalize */
+  private travelContainer;
+  /** 标准化参数，扩展盒模型等参数 */
+  private normalize;
+  measure(content: PosterTextCommonOptions): TextMetrics;
+  measureHeight(
+    content: PosterText,
+    maxWidth?: number,
+  ): Promise<{
+    width: number;
+    height: number;
+  }>;
+}
+/**
+ * 导出 canvas
+ */
 declare function saveCanvasAsImage(
   canvas: Canvas,
   options?: {
@@ -378,18 +376,12 @@ declare function saveCanvasAsImage(
   },
 ): Promise<unknown>;
 
-/**
- * 配置式生成 Canvas 海报
- * @web
- * @miniprogram
- */
-declare function canvasPoster(elements: PosterElements, options: PosterOptions): Promise<void>;
-
 export {
   type AsyncFn,
   type CallbackifyParams,
   type CallbackifyResults,
   type CancelableFunction,
+  CanvasPoster,
   type DeepPartial,
   type DeepReadonly,
   type DeepRequired,
@@ -400,7 +392,5 @@ export {
   type PartiallyRequired,
   type Recordable,
   type Writable,
-  canvasPoster,
   saveCanvasAsImage,
-  wxPromisify,
 };

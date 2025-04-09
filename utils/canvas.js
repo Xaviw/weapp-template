@@ -1,1232 +1,860 @@
 /* eslint-disable */
 // prettier-ignore
-/**
- * 获取值的内部 [[Class]] 属性，等同于 Object.prototype.toString.call
- * @param val - 要获取类型的值
- * @returns 返回形如 '[object Type]' 的字符串
- * @example
- * ```ts
- * objectToString([]) // '[object Array]'
- * objectToString({}) // '[object Object]'
- * objectToString(null) // '[object Null]'
- * objectToString(new Date()) // '[object Date]'
- * ```
- */
-function objectToString(val) {
-    return Object.prototype.toString.call(val);
+function t(t){return Object.prototype.toString.call(t)}
+function e(e) {
+  return Array.isArray ? Array.isArray(e) : '[object Array]' === t(e);
 }
-
-/**
- * 判断值是否为数组
- * @param val - 要检查的值
- * @returns 如果值是数组，则返回 true，否则返回 false
- * @example
- * ```ts
- * isArray([1, 2, 3]) // true
- * isArray('hello') // false
- * ```
- */
-function isArray(val) {
-  if (Array.isArray) return Array.isArray(val);
-  return objectToString(val) === '[object Array]';
+function o(e) {
+  return ['[object Function]', '[object GeneratorFunction]', '[object AsyncFunction]'].includes(t(e));
 }
-/**
- * 判断值是否为函数
- * @param val - 要检查的值
- * @returns 如果值是函数，则返回 true，否则返回 false
- * @example
- * ```ts
- * isFunction(() => {}) // true
- * isFunction(123) // false
- * ```
- */
-function isFunction(val) {
-  return ['[object Function]', '[object GeneratorFunction]', '[object AsyncFunction]'].includes(objectToString(val));
+function i(t) {
+  return null == t;
 }
-/**
- * 判断值是否为 null 或者 undefined（void 0）
- * @param val - 要检查的值
- * @returns 如果值是null 或者 undefined（void 0），则返回 true，否则返回 false
- * @example
- * ```ts
- * isNil(null) // true
- * isNil(123) // false
- * ```
- */
-function isNil(val) {
-  return val == null;
+function n(e) {
+  return '[object Number]' === t(e);
 }
-/**
- * 判断值是否为数字
- * @param val - 要检查的值
- * @returns 如果值是数字，则返回 true，否则返回 false
- * @example
- * ```ts
- * isNumber(123) // true
- * isNumber('123') // false
- * ```
- */
-function isNumber(val) {
-  return objectToString(val) === '[object Number]';
+function s(t) {
+  const e = typeof t;
+  return !!t && ('function' === e || 'object' === e);
 }
-/**
- * 判断值是否为对象（包括函数）
- * @param val - 要检查的值
- * @returns 如果值是对象，则返回 true，否则返回 false
- * @example
- * ```ts
- * isObject({}) // true
- * isObject(null) // false
- * ```
- */
-function isObject(val) {
-  const type = typeof val;
-  return !!val && (type === 'function' || type === 'object');
+function r(e) {
+  return '[object String]' === t(e);
 }
-/**
- * 判断值是否为字符串
- * @param val - 要检查的值
- * @returns 如果值是字符串，则返回 true，否则返回 false
- * @example
- * ```ts
- * isString('hello') // true
- * isString(123) // false
- * ```
- */
-function isString(val) {
-  return objectToString(val) === '[object String]';
+function a(t) {
+  return !!r(t) && /^(?:\/|\.\/|\.\.\/)[\w/.-]*$/.test(t.trim());
 }
-
-/**
- * 简单 LRU (Least Recently Used) 缓存实现
- * @example
- * ```ts
- * const cache = new Lru(2)
- * cache.set('a', 1)
- * cache.set('b', 2)
- * cache.get('a') // 1
- * cache.set('c', 3) // 'b' 会被删除
- * ```
- */
-class Lru {
+function h(t) {
+  return !!r(t) && /^(?:\w+:)?\/\/(?:[^\s.]+\.\S{2}|localhost)\S*$/.test(t);
+}
+function c(t, e) {
+  if (n(t)) {
+    const { x: o, y: i, width: n, height: s, ctx: r } = e,
+      a = o + n / 2,
+      h = i + s / 2;
+    r.translate(a, h), r.rotate((t * Math.PI) / 180), r.translate(-a, -h);
+  }
+}
+function l(t) {
+  let { x: e, y: o, w: i, h: n, r: s, ctx: r } = t;
+  const a = Math.min(i, n);
+  s > a / 2 && (s = a / 2),
+    r.beginPath(),
+    r.moveTo(e + s, o),
+    r.arcTo(e + i, o, e + i, o + n, s),
+    r.arcTo(e + i, o + n, e, o + n, s),
+    r.arcTo(e, o + n, e, o, s),
+    r.arcTo(e, o, e + i, o, s),
+    r.closePath();
+}
+function d(t, e) {
+  if (!s(t)) return t;
+  if (!o(e)) throw new TypeError('iterator 应该是一个函数');
+  const i = {};
+  return (
+    Object.keys(t).forEach((o) => {
+      const [n, s] = e(o, t[o]);
+      i[n] = s;
+    }),
+    i
+  );
+}
+function f(t, o) {
+  return s(t)
+    ? e(o) && o.length
+      ? o.reduce((e, o) => (Object.prototype.hasOwnProperty.call(t, o) && (e[o] = t[o]), e), {})
+      : {}
+    : t;
+}
+class u {
   max;
   cache = new Map();
-  /**
-   * 创建一个新的 LRU 缓存实例
-   * @param max - 缓存的最大容量，默认为 Infinity
-   */
-  constructor(max) {
-    this.max = Number.parseInt(max) || Infinity;
+  constructor(t) {
+    this.max = Number.parseInt(t) || 1 / 0;
   }
-  /**
-   * 检查缓存中是否存在指定的键
-   * @param key - 要检查的键
-   * @returns 如果键存在则返回 true，否则返回 false
-   */
-  has(key) {
-    return this.cache.has(key);
+  has(t) {
+    return this.cache.has(t);
   }
-  /**
-   * 从缓存中移除指定的键值对
-   * @param key - 要移除的键
-   */
-  remove(key) {
-    if (this.has(key)) this.cache.delete(key);
+  remove(t) {
+    this.has(t) && this.cache.delete(t);
   }
-  /**
-   * 获取缓存中指定键的值，并将其移到最近使用的位置
-   * @param key - 要获取的键
-   * @returns 键对应的值，如果键不存在则返回 null
-   */
-  get(key) {
-    if (!this.has(key)) return null;
-    const value = this.cache.get(key);
-    this.cache.delete(key);
-    this.cache.set(key, value);
-    return value;
+  get(t) {
+    if (!this.has(t)) return null;
+    const e = this.cache.get(t);
+    return this.cache.delete(t), this.cache.set(t, e), e;
   }
-  /**
-   * 设置缓存中的键值对，如果缓存已满则移除最久未使用的项
-   * @param key - 要设置的键
-   * @param value - 要设置的值
-   */
-  set(key, value) {
-    if (this.has(key)) {
-      this.cache.delete(key);
-    } else if (this.cache.size >= this.max) {
-      const firstKey = this.cache.keys().next().value;
-      firstKey && this.cache.delete(firstKey);
+  set(t, e) {
+    if (this.has(t)) this.cache.delete(t);
+    else if (this.cache.size >= this.max) {
+      const t = this.cache.keys().next().value;
+      t && this.cache.delete(t);
     }
-    this.cache.set(key, value);
+    this.cache.set(t, e);
   }
-  /**
-   * 清空缓存
-   */
   clear() {
     this.cache.clear();
   }
 }
-
-/**
- * 创建一个带有缓存功能的记忆化函数
- * @param fn - 需要被记忆化的原函数
- * @param options - 记忆化配置选项
- * @returns  返回一个带有缓存功能的新函数
- * @example
- * // 基本用法
- * const cachedFn = memo(expensiveFunction);
- *
- * // 使用自定义缓存键生成函数
- * const cachedFn = memo(userFetch, {
- *   key: (userId) => `user-${userId}`,
- *   expires: 60000 // 1分钟过期
- * });
- *
- * // 使用LRU缓存限制最大缓存数量
- * const cachedFn = memo(heavyComputation, {
- *   lruMax: 100
- * });
- */
-function memo(fn, options) {
-  /**
-   * 记忆化后的函数
-   * @param {...Args} args - 传递给原函数的参数
-   * @returns {R} 原函数的返回值，可能来自缓存
-   */
-  function memoize(...args) {
-    const key = isFunction(options?.key) ? options.key(...args) : JSON.stringify(args);
-    const existing = memoize.cache.get(key);
-    if (existing && (!existing.expires || existing.expires > Date.now())) {
-      return existing.value;
+const g = (function (t, e) {
+    function i(...n) {
+      const s = o(e?.key) ? e.key(...n) : JSON.stringify(n),
+        r = i.cache.get(s);
+      if (r && (!r.expires || r.expires > Date.now())) return r.value;
+      const a = t(...n),
+        h = Number.parseInt(e?.expires) || null;
+      return i.cache.set(s, { value: a, expires: h ? Date.now() + h : null }), a;
     }
-    const result = fn(...args);
-    const expires = Number.parseInt(options?.expires) || null;
-    memoize.cache.set(key, {
-      value: result,
-      expires: expires ? Date.now() + expires : null,
-    });
-    return result;
-  }
-  /**
-   * 缓存存储对象
-   * @type {Lru}
-   */
-  memoize.cache = new Lru(options?.lruMax);
-  return memoize;
-}
-
-/**
- * 判断字符串是否为相对路径或绝对路径
- * @param str - 要检查的字符串
- * @returns 如果是相对路径或绝对路径则返回 true，否则返回 false
- */
-function isPath(str) {
-  if (!isString(str)) return false;
-  return /^(?:\/|\.\/|\.\.\/)[\w/.-]*$/.test(str.trim());
-}
-/**
- * 判断字符串是否为有效的 Data URL
- * @param str - 要检查的字符串
- * @returns 如果是有效的 Data URL 则返回 true，否则返回 false
- * @example
- * ```ts
- * isDataUrl('data:image/png;base64,iVBORw0K...') // true
- * isDataUrl('https://example.com/image.png') // false
- * ```
- */
-function isDataUrl(str) {
-  if (!isString(str)) return false;
-  // https://tools.ietf.org/html/rfc2397
-  return /^data:(?:[a-z]+\/[a-z0-9-+.]+(?:;[a-z0-9-.!#$%*+{}|~`]+=[a-z0-9-.!#$%*+{}|~`]+)*)?(?:;base64)?,[\w!$&',()*+;=\-.~:@/?%\s]*$/i.test(
-    str.trim(),
-  );
-}
-/**
- * 判断字符串是否为有效的 URL（支持 localhost）
- * @param str - 要检查的字符串
- * @returns 如果是有效的 URL 则返回 true，否则返回 false
- * @example
- * ```ts
- * isUrl('https://example.com') // true
- * isUrl('http://localhost:3000') // true
- * ```
- */
-function isUrl(str) {
-  if (!isString(str)) return false;
-  return /^(?:\w+:)?\/\/(?:[^\s.]+\.\S{2}|localhost)\S*$/.test(str);
-}
-
-const downloadImage = memo(
-  (src, canvas) => {
-    return new Promise((resolve, reject) => {
-      {
-        if (isPath(src)) {
-          const image = canvas.createImage();
-          image.onload = () => {
-            resolve({ image, width: image.width, height: image.height });
-          };
-          image.onerror = reject;
-          image.src = src;
-        } else if (isUrl(src)) {
-          const downloader = src.startsWith('cloud://') ? wx.cloud.downloadFile : wx.downloadFile;
-          downloader({
-            url: src,
-            fileID: src,
-            success: (file) => {
-              if (file.statusCode !== 200) {
-                reject(file);
-                return;
-              }
-              const image = canvas.createImage();
-              image.onload = () => {
-                resolve({ image, width: image.width, height: image.height });
-              };
-              image.onerror = reject;
-              image.src = file.tempFilePath;
+    return (i.cache = new u(e?.lruMax)), i;
+  })(
+    (t, e) =>
+      new Promise((o, i) => {
+        if (a(t)) {
+          const n = e.createImage();
+          (n.onload = () => {
+            o({ image: n, width: n.width, height: n.height });
+          }),
+            (n.onerror = i),
+            (n.src = t);
+        } else if (h(t)) {
+          (t.startsWith('cloud://') ? wx.cloud.downloadFile : wx.downloadFile)({
+            url: t,
+            fileID: t,
+            success: (t) => {
+              if (200 !== t.statusCode) return void i(t);
+              const n = e.createImage();
+              (n.onload = () => {
+                o({ image: n, width: n.width, height: n.height });
+              }),
+                (n.onerror = i),
+                (n.src = t.tempFilePath);
             },
-            fail: reject,
+            fail: i,
           });
-        } else if (isDataUrl(src)) {
-          const [, format, body] = /data:image\/(\w+);base64,(.*)/.exec(src) || [];
-          const filePath = `${wx.env.USER_DATA_PATH}/${Date.now()}.${format}`;
-          const buffer = wx.base64ToArrayBuffer(body.replace(/[\r\n]/g, ''));
+        } else if (
+          r((n = t)) &&
+          /^data:(?:[a-z]+\/[a-z0-9-+.]+(?:;[a-z0-9-.!#$%*+{}|~`]+=[a-z0-9-.!#$%*+{}|~`]+)*)?(?:;base64)?,[\w!$&',()*+;=\-.~:@/?%\s]*$/i.test(
+            n.trim(),
+          )
+        ) {
+          const [, n, s] = /data:image\/(\w+);base64,(.*)/.exec(t) || [],
+            r = `${wx.env.USER_DATA_PATH}/${Date.now()}.${n}`,
+            a = wx.base64ToArrayBuffer(s.replace(/[\r\n]/g, ''));
           wx.getFileSystemManager().writeFile({
-            filePath,
-            data: buffer,
+            filePath: r,
+            data: a,
             encoding: 'binary',
             success: () => {
-              const image = canvas.createImage();
-              image.onload = () => {
-                resolve({ image, width: image.width, height: image.height });
-              };
-              image.onerror = reject;
-              image.src = filePath;
+              const t = e.createImage();
+              (t.onload = () => {
+                o({ image: t, width: t.width, height: t.height });
+              }),
+                (t.onerror = i),
+                (t.src = r);
             },
-            fail: reject,
+            fail: i,
           });
-        } else {
-          reject(src);
-        }
-      }
-    });
-  },
-  {
-    lruMax: 20,
-    key(src) {
-      return src;
+        } else i(t);
+        var n;
+      }),
+    { lruMax: 20, key: (t) => t },
+  ),
+  p = {
+    lineWidth(t, e) {
+      n(t) && t >= 0 && (e.lineWidth = t);
     },
-  },
-);
-
-/**
- * 遍历对象的每个键值并返回一个新对象，类似数组的 map 方法
- * @param obj - 要遍历的对象
- * @param iterator - 遍历函数，接收属性名和属性值作为参数，返回新的属性名和属性值元组
- * @returns 返回一个新对象，包含遍历函数处理后的结果
- * @throws 当 iterator 不是函数时抛出类型错误
- * @example
- * ```ts
- * mapObject({ a: 1, b: 2 }, (key, val) => [key, val * 2]) // { a: 2, b: 4 }
- * mapObject({ x: 'hello', y: 'world' }, (key, val) => [key.toUpperCase(), `${key}_${val}`])
- * // { X: 'x_hello', Y: 'y_world' }
- * mapObject({}, (key, val) => [key, val]) // {}
- * ```
- */
-function mapObject(obj, iterator) {
-  if (!isObject(obj)) return obj;
-  if (!isFunction(iterator)) throw new TypeError('iterator 应该是一个函数');
-  const result = {};
-  Object.keys(obj).forEach((key) => {
-    const [k, v] = iterator(key, obj[key]);
-    result[k] = v;
-  });
-  return result;
-}
-
-/**
- * 绘制元素旋转
- * @param rotate - 旋转角度
- * @param options
- * @param options.x - 旋转容器左上角 x
- * @param options.y - 旋转容器左上角 y
- * @param options.width - 旋转容器宽度
- * @param options.height - 旋转容器高度
- * @web
- * @miniprogram
- */
-function rotateCanvasElement(rotate, options) {
-  if (isNumber(rotate)) {
-    const { x, y, width, height, ctx } = options;
-    const centerX = x + width / 2;
-    const centerY = y + height / 2;
-    ctx.translate(centerX, centerY);
-    ctx.rotate((rotate * Math.PI) / 180);
-    ctx.translate(-centerX, -centerY);
-  }
-}
-function saveCanvasAsImage(canvas, options) {
-  let { type, quality, fileName } = isObject(options) ? options : {};
-  type = isString(type) && type.startsWith('image/') ? type : undefined;
-  quality = isNumber(quality) && quality > 0 && quality <= 1 ? quality : 1;
-  return new Promise((resolve, reject) => {
-    {
-      wx.canvasToTempFilePath({
-        canvas,
-        fileType: type === 'image/jpeg' ? 'jpg' : 'png',
-        quality,
-        success({ tempFilePath }) {
-          wx.saveImageToPhotosAlbum({
-            filePath: tempFilePath,
-            success() {
-              resolve(tempFilePath);
-            },
-            fail(err) {
-              reject(err);
-            },
-          });
-        },
-        fail(err) {
-          reject(err);
-        },
-      });
-    }
-  });
-}
-
-/**
- * canvas 实例属性绘制策略
- */
-const canvasPropsStrategies = {
-  lineWidth(lineWidth, ctx) {
-    if (isNumber(lineWidth)) ctx.lineWidth = lineWidth;
-  },
-  lineDash(lineDash, ctx) {
-    if (isArray(lineDash) && lineDash.every(isNumber)) ctx.setLineDash(lineDash);
-  },
-  lineDashOffset(lineDashOffset, ctx) {
-    if (isNumber(lineDashOffset)) ctx.lineDashOffset = lineDashOffset;
-  },
-  lineCap(lineCap, ctx) {
-    if (lineCap && ['butt', 'round', 'square'].includes(lineCap)) ctx.lineCap = lineCap;
-  },
-  lineJoin(lineJoin, ctx) {
-    if (lineJoin && ['round', 'bevel', 'miter'].includes(lineJoin)) ctx.lineJoin = lineJoin;
-  },
-  miterLimit(miterLimit, ctx) {
-    if (isNumber(miterLimit)) ctx.miterLimit = miterLimit;
-  },
-  fillStyle(fillStyle, ctx) {
-    if (fillStyle) ctx.fillStyle = fillStyle;
-  },
-  strokeStyle(strokeStyle, ctx) {
-    if (strokeStyle) ctx.strokeStyle = strokeStyle;
-  },
-  shadowColor(shadowColor, ctx) {
-    if (isString(shadowColor)) ctx.shadowColor = shadowColor;
-  },
-  shadowBlur(shadowBlur, ctx) {
-    if (isNumber(shadowBlur)) ctx.shadowBlur = shadowBlur;
-  },
-  shadowOffsetX(shadowOffsetX, ctx) {
-    if (isNumber(shadowOffsetX)) ctx.shadowOffsetX = shadowOffsetX;
-  },
-  shadowOffsetY(shadowOffsetY, ctx) {
-    if (isNumber(shadowOffsetY)) ctx.shadowOffsetY = shadowOffsetY;
-  },
-  wordSpacing(wordSpacing, ctx) {
-    if (isNumber(wordSpacing)) ctx.wordSpacing = `${wordSpacing}px`;
-  },
-  letterSpacing(letterSpacing, ctx) {
-    if (isNumber(letterSpacing)) ctx.letterSpacing = `${letterSpacing}px`;
-  },
-  textBaseLine(textBaseLine, ctx) {
-    if (isString(textBaseLine)) ctx.textBaseline = textBaseLine;
-  },
-};
-canvasPropsStrategies.color = canvasPropsStrategies.backgroundColor = canvasPropsStrategies.fillStyle;
-canvasPropsStrategies.color = canvasPropsStrategies.lineColor = canvasPropsStrategies.strokeStyle;
-canvasPropsStrategies.borderColor = canvasPropsStrategies.lineColor = canvasPropsStrategies.strokeStyle;
-canvasPropsStrategies.borderDash = canvasPropsStrategies.lineDash;
-canvasPropsStrategies.borderDashOffset = canvasPropsStrategies.lineDashOffset;
-/**
- * 设置 canvas 实例属性
- * @param props 实例属性对象
- */
-function settingCanvasProps(props, ctx) {
-  for (const key in props) {
-    if (Object.prototype.hasOwnProperty.call(props, key)) {
-      canvasPropsStrategies[key]?.(props[key], ctx);
-    }
-  }
-  const borderSize = Math.max(Number.parseFloat(props.borderSize) || 0, 0);
-  if (borderSize) {
-    if (props.borderStyle === 'dashed' && !props.borderDash) ctx.setLineDash([borderSize * 2, borderSize]);
-    else if (props.borderStyle === 'solid' && props.borderDash) ctx.setLineDash([]);
-  }
-  if (props.fontStyle && props.fontWeight && props.fontSize && props.fontFamily)
-    ctx.font = `${props.fontStyle} ${props.fontWeight} ${props.fontSize}px '${props.fontFamily}'`;
-  return borderSize;
-}
-
-/**
- * 绘制 canvas 线条
- * @web
- * @miniprogram
- */
-function renderLine(configs, options) {
-  const { ctx, width: canvasWidth, height: canvasHeight } = options;
-  ctx.save();
-  // 参数标准化
-  const { x, y, width, height, points } = lineStrategy(
-    { type: 'line', ...configs },
-    { width: canvasWidth, height: canvasHeight, x: 0, y: 0 },
+    lineDash(t, o) {
+      e(t) && t.every(n) && o.setLineDash(t);
+    },
+    lineDashOffset(t, e) {
+      n(t) && (e.lineDashOffset = t);
+    },
+    lineCap(t, e) {
+      t && ['butt', 'round', 'square'].includes(t) && (e.lineCap = t);
+    },
+    lineJoin(t, e) {
+      t && ['round', 'bevel', 'miter'].includes(t) && (e.lineJoin = t);
+    },
+    miterLimit(t, e) {
+      n(t) && t >= 0 && (e.miterLimit = t);
+    },
+    fillStyle(t, e) {
+      (r(t) || s(t)) && (e.fillStyle = t);
+    },
+    strokeStyle(t, e) {
+      (r(t) || s(t)) && (e.strokeStyle = t);
+    },
+    shadowColor(t, e) {
+      r(t) && (e.shadowColor = t);
+    },
+    shadowBlur(t, e) {
+      n(t) && t >= 0 && (e.shadowBlur = t);
+    },
+    shadowOffsetX(t, e) {
+      n(t) && (e.shadowOffsetX = t);
+    },
+    shadowOffsetY(t, e) {
+      n(t) && (e.shadowOffsetY = t);
+    },
+    wordSpacing(t, e) {
+      n(t) && (e.wordSpacing = `${t}px`);
+    },
+    letterSpacing(t, e) {
+      n(t) && (e.letterSpacing = `${t}px`);
+    },
+    textBaseLine(t, e) {
+      t && ['alphabetic', 'bottom', 'hanging', 'ideographic', 'middle', 'top'].includes(t) && (e.textBaseline = t);
+    },
+    filter(t, e) {
+      r(t) && (e.filter = t);
+    },
+  };
+function w(t, e) {
+  for (const o in t) Object.prototype.hasOwnProperty.call(t, o) && p[o] && p[o](t[o], e);
+  const o = Math.max(Number.parseFloat(t.borderSize) || 0, 0);
+  return (
+    o &&
+      ('dashed' !== t.borderStyle || t.borderDash
+        ? 'solid' === t.borderStyle && t.borderDash && e.setLineDash([])
+        : e.setLineDash([2 * o, o])),
+    t.fontStyle &&
+      t.fontWeight &&
+      t.fontSize &&
+      t.fontFamily &&
+      (e.font = `${t.fontStyle} ${t.fontWeight} ${t.fontSize}px '${t.fontFamily}'`),
+    o
   );
-  if (points.length < 2) return;
-  // 设置 canvas 属性
-  settingCanvasProps(configs, ctx);
-  // 旋转
-  if (configs.rotate) rotateCanvasElement(configs.rotate, { x, y, width, height, ctx });
-  // 绘制
-  const [first, ...rest] = points;
-  ctx.beginPath();
-  ctx.moveTo(...first);
-  rest.forEach((item) => ctx.lineTo(...item));
-  ctx.stroke();
-  ctx.closePath();
-  ctx.restore();
 }
-
-/**
- * 绘制全部段落
- */
-function enhancedDraw(text, options) {
-  let { content, textAlign, lineClamp, ellipsisContent } = text;
-  lineClamp = isNumber(lineClamp) && lineClamp > 0 ? lineClamp : Infinity;
-  ellipsisContent = isString(ellipsisContent) ? ellipsisContent : '...';
-  const { ctx, maxWidth, x, y } = options;
-  ctx.save();
-  const baseProps = settingProperty(text, { ctx });
-  let contents = isArray(content) ? [...content] : [{ content }];
-  let yOffset = 0;
-  let rowNum = 1;
-  while (contents.length) {
-    const { top, bottom, content } = measureRowHeight(contents, {
-      ctx,
-      maxWidth,
-      baseProps,
-      suffix: rowNum === lineClamp ? ellipsisContent : '',
-    });
-    const readyLength = content.length;
-    const origin = contents[readyLength - 1];
-    const last = content[readyLength - 1];
-    const lastReady = last.content.length === origin.content.length;
-    yOffset += top;
-    // 最后一行
-    let alignOffset = 0;
-    if (content.length === contents.length && lastReady) {
-      const rowWidth = content.reduce((p, c) => p + c.width, 0);
-      if (textAlign === 'center') alignOffset = (maxWidth - rowWidth) / 2;
-      if (textAlign === 'right') alignOffset = maxWidth - rowWidth;
-    }
-    content.forEach((item) => {
+const x = {
+    async prepare(t, { canvas: e }) {
+      const { src: o } = t;
+      r(o) || console.error(`图片链接错误，当前为：${o}`);
+      const { image: i, width: s, height: a } = await g(o, e);
+      return {
+        ...t,
+        image: i,
+        imageWidth: s,
+        imageHeight: a,
+        shadowBlur: n(t.shadowBlur) ? t.shadowBlur : 0,
+        shadowColor: r(t.shadowColor) ? t.shadowColor : '#00000000',
+        shadowOffsetX: n(t.shadowOffsetX) ? t.shadowOffsetX : 0,
+        shadowOffsetY: n(t.shadowOffsetY) ? t.shadowOffsetY : 0,
+      };
+    },
+    calculate(t, e) {
+      const { width: s, height: r } = e;
+      let { imageWidth: a, imageHeight: h, borderRadius: c, mode: l } = t;
       const {
-        backgroundColor,
-        overLineY,
-        xOffset,
-        width,
-        underLineY,
-        textDecorationProps,
-        textDecoration,
-        color,
-        lineThroughY,
-      } = item;
-      if (backgroundColor) {
-        renderRect(
-          {
-            type: 'rect',
-            top: y + yOffset + overLineY,
-            left: x + xOffset + alignOffset,
-            backgroundColor,
-            width,
-            height: Math.abs(overLineY) + Math.abs(underLineY),
-          },
-          { ctx, width: 100, height: 100 },
-        );
+        top: u,
+        right: g,
+        bottom: p,
+        left: w,
+        width: x,
+        height: m,
+      } = d(f(t, ['width', 'height', 'top', 'right', 'bottom', 'left']), (t, e) => [
+        t,
+        n(e) ? e : o(e) ? e({ containerWidth: s, containerHeight: r, selfWidth: a, selfHeight: h }) : void 0,
+      ]);
+      let {
+          sourceHeight: y,
+          sourceWidth: b,
+          sourceX: v,
+          sourceY: W,
+        } = d(
+          { sourceHeight: t.sourceHeight, sourceWidth: t.sourceWidth, sourceX: t.sourceX, sourceY: t.sourceY },
+          (t, e) => [
+            t,
+            n(e)
+              ? e
+              : o(e)
+              ? e({ containerWidth: s, containerHeight: r, selfWidth: a, selfHeight: h })
+              : 'sourceHeight' === t
+              ? h
+              : 'sourceWidth' === t
+              ? a
+              : 0,
+          ],
+        ),
+        O = 0,
+        S = 0,
+        P = 0,
+        C = 0;
+      const F = b / y;
+      if (x) {
+        P = x;
+        m || (C = y * (P / b));
       }
-      ctx.save();
-      settingProperty(item, { ctx, baseProps });
-      draw(item, { ctx, baseProps, x: x + xOffset + alignOffset, y: y + yOffset });
-      if (['overline', 'line-through', 'underline'].includes(textDecoration)) {
-        const offsetY =
-          textDecoration === 'overline' ? overLineY : textDecoration === 'line-through' ? lineThroughY : underLineY;
-        const halfLine =
-          textDecorationProps.lineWidth && textDecorationProps.lineWidth > 0 ? textDecorationProps.lineWidth / 2 : 0.5;
-        const halfLineOffset =
-          textDecoration === 'overline' ? -halfLine : textDecoration === 'underline' ? halfLine : 0;
-        renderLine(
-          {
-            points: [
-              [x + xOffset + alignOffset, y + yOffset + offsetY + halfLineOffset],
-              [x + xOffset + alignOffset + width, y + yOffset + offsetY + halfLineOffset],
-            ],
-            ...textDecorationProps,
-            lineColor: textDecorationProps.lineColor || color,
-          },
-          {
-            ctx,
-            width: 100,
-            height: 100,
-          },
-        );
+      if (m) {
+        C = m;
+        x || (P = b * (C / y));
       }
-      ctx.restore();
-    });
-    if (rowNum === lineClamp) {
-      contents = [];
-    } else {
-      yOffset += bottom;
-      contents = contents.slice(lastReady ? readyLength : readyLength - 1);
-      if (!lastReady) {
-        contents[0] = { ...contents[0], content: contents[0].content.slice(last.content.length) };
-      }
-    }
-    rowNum++;
-  }
-  ctx.restore();
-}
-/**
- * 测量全部段落总高度
- */
-function enhancedMeasure(text, options) {
-  let { lineClamp, content } = text;
-  lineClamp = isNumber(lineClamp) && lineClamp > 0 ? lineClamp : Infinity;
-  const { ctx, maxWidth } = options;
-  ctx.save();
-  const baseProps = settingProperty(text, { ctx });
-  let contents = isArray(content) ? [...content] : [{ content }];
-  let height = 0;
-  let rowNum = 1;
-  while (contents.length) {
-    const { top, bottom, content } = measureRowHeight(contents, { ctx, maxWidth, baseProps });
-    height += top + bottom;
-    if (rowNum < lineClamp) {
-      rowNum++;
-      const readyLength = content.length;
-      const origin = contents[readyLength - 1];
-      const last = content[readyLength - 1];
-      const lastReady = last.content.length === origin.content.length;
-      contents = contents.slice(lastReady ? readyLength : readyLength - 1);
-      if (!lastReady) {
-        contents[0] = { ...contents[0], content: contents[0].content.slice(last.content.length) };
-      }
-    } else {
-      contents = [];
-    }
-  }
-  ctx.restore();
-  return height;
-}
-/**
- * 计算文本首行基线上下部分高度（含行高）
- */
-function measureRowHeight(contents, options) {
-  const { ctx, maxWidth, baseProps } = options;
-  const top = [];
-  const bottom = [];
-  const renderable = [];
-  let line = '';
-  let xOffset = 0;
-  // 每一段
-  for (let pi = 0; pi < contents.length; pi++) {
-    const p = contents[pi];
-    ctx.save();
-    const props = settingProperty(p, { ctx, baseProps });
-    const suffix = isString(options.suffix) ? options.suffix : '';
-    const suffixWidth = isString(options.suffix) ? measure({ ...props, content: options.suffix }, { ctx }).width : 0;
-    // 每个字
-    for (let i = 0; i < p.content.length; i++) {
-      line += p.content[i];
-      const { width, fontBoundingBoxAscent, fontBoundingBoxDescent } = measure(
-        { ...p, content: line + suffix },
-        { ctx, baseProps },
+      x || m || ((P = b), (C = y)), i(w) ? i(g) || (O = s - g - P) : (O = w), i(u) ? i(p) || (S = r - p - C) : (S = u);
+      let Y = 0,
+        H = 0;
+      if (x && m)
+        if ('aspectFill' === l) {
+          const t = P / C;
+          F < 1 ? (y = b / t) : (b = y * t);
+        } else if ('aspectFit' === l)
+          if (F < 1) {
+            const t = C * F;
+            (Y = (P - t) / 2), (O += Y), (P = t);
+          } else {
+            const t = P / F;
+            (H = (C - t) / 2), (S += H), (C = t);
+          }
+      return (
+        (c =
+          n(c) && c >= 0
+            ? c
+            : o(c)
+            ? c({ containerHeight: e.height, containerWidth: e.width, selfHeight: h, selfWidth: a })
+            : 0),
+        {
+          ...t,
+          sourceHeight: y,
+          sourceWidth: b,
+          sourceX: v,
+          sourceY: W,
+          x: O,
+          y: S,
+          width: P,
+          height: C,
+          borderRadius: c,
+          borderOffsetX: Y,
+          borderOffsetY: H,
+        }
       );
-      const isEnd = i === p.content.length - 1;
-      // 满一行或一段结束
-      if (width + xOffset > maxWidth || isEnd) {
-        // 文本高度
-        const height = fontBoundingBoxAscent + fontBoundingBoxDescent;
-        // 行高在基线上下平分
-        const halfLineHeight = (calcSize(props.lineHeight, height) - height) / 2;
-        console.log(fontBoundingBoxAscent, fontBoundingBoxDescent);
-        // 存储每一段文本的基线上下高度
-        top.push(fontBoundingBoxAscent + halfLineHeight);
-        bottom.push(fontBoundingBoxDescent + halfLineHeight);
-        const baseLine = props.textBaseLine;
-        const overLineY = -fontBoundingBoxAscent;
-        let lineThroughY = -(height / 2) + fontBoundingBoxDescent;
-        const underLineY = fontBoundingBoxDescent;
-        if (['top', 'hanging'].includes(baseLine)) {
-          lineThroughY = height / 2 - fontBoundingBoxAscent;
-        } else if (baseLine === 'middle') {
-          lineThroughY = 0;
-        }
-        renderable.push({
-          ...props,
-          content: isEnd ? line : line.slice(0, -1) + suffix,
-          overLineY,
-          lineThroughY,
-          underLineY,
-          xOffset,
-          width: isEnd ? width - suffixWidth : width,
-        });
-        // 满一行
-        if (width + xOffset > maxWidth) {
-          ctx.restore();
-          return {
-            top: Math.max(...top),
-            bottom: Math.max(...bottom),
-            content: renderable,
-          };
-        }
-        // 一段结束
-        if (isEnd) {
-          xOffset += width;
-          line = '';
-        }
+    },
+    render(t, { ctx: e, width: o, height: i }) {
+      let {
+        x: s,
+        y: r,
+        width: a,
+        height: h,
+        border: c,
+        borderRadius: d,
+        shadowBlur: f,
+        shadowColor: u,
+        shadowOffsetX: g,
+        shadowOffsetY: p,
+        image: x,
+        sourceHeight: m,
+        sourceWidth: y,
+        sourceX: b,
+        sourceY: v,
+        flipX: W,
+        flipY: O,
+        borderOffsetX: S,
+        borderOffsetY: P,
+      } = t;
+      e.translate(W ? o : 0, O ? i : 0), e.scale(W ? -1 : 1, O ? -1 : 1), W && (s = o - s - a), O && (r = i - r - h);
+      let { lineWidth: C } = c || {};
+      (C = n(C) ? C : 0),
+        d || (c && C)
+          ? (e.save(),
+            l({ x: s - C / 2 - S + g, y: r - C / 2 - P + p, w: a + C + 2 * S, h: h + C + 2 * P, r: d, ctx: e }),
+            w({ filter: `blur(${f}px)`, fillStyle: u }, e),
+            e.fill(),
+            e.restore(),
+            l({ x: s - C / 2 - S, y: r - C / 2 - P, w: a + C + 2 * S, h: h + C + 2 * P, r: d, ctx: e }),
+            e.clip())
+          : w({ shadowBlur: f, shadowColor: u, shadowOffsetX: g, shadowOffsetY: p }, e),
+        e.drawImage(x, b, v, y, m, s, r, a, h),
+        c && C && (w({ ...c, strokeStyle: c.lineColor, shadowColor: '#00000000' }, e), e.stroke());
+    },
+  },
+  m = {
+    prepare: (t) => t,
+    calculate(t, { width: e, height: i }) {
+      let { lineWidth: s } = t;
+      s = n(s) ? s : 1;
+      let r = 1 / 0,
+        a = 1 / 0,
+        h = -1 / 0,
+        c = -1 / 0;
+      const l = t.points.reduce((t, n) => {
+        let [s, l] = n;
+        return (
+          (s = o(s) ? s({ containerWidth: e, containerHeight: i }) : Number.parseFloat(s)),
+          (l = o(l) ? l({ containerWidth: e, containerHeight: i }) : Number.parseFloat(l)),
+          Number.isNaN(s) ||
+            Number.isNaN(l) ||
+            (t.push([s, l]), (r = Math.min(r, s)), (a = Math.min(a, l)), (h = Math.max(h, s)), (c = Math.max(c, l))),
+          t
+        );
+      }, []);
+      return { ...t, points: l, width: h - r + s, height: c - a + s, x: r - s / 2, y: a - s / 2 };
+    },
+    render(t, { ctx: e }) {
+      const {
+        points: o,
+        lineCap: i,
+        lineColor: n,
+        lineDash: s,
+        lineDashOffset: r,
+        lineJoin: a,
+        lineWidth: h,
+        miterLimit: c,
+        shadowBlur: l,
+        shadowColor: d,
+        shadowOffsetX: f,
+        shadowOffsetY: u,
+      } = t;
+      if (o.length < 2) return void console.error(`line points 参数错误，当前 points 计算后为：${o}`);
+      w(
+        {
+          lineCap: i,
+          strokeStyle: n,
+          lineDash: s,
+          lineDashOffset: r,
+          lineJoin: a,
+          lineWidth: h,
+          miterLimit: c,
+          shadowBlur: l,
+          shadowColor: d,
+          shadowOffsetX: f,
+          shadowOffsetY: u,
+        },
+        e,
+      );
+      const [g, ...p] = o;
+      e.beginPath(), e.moveTo(...g), p.forEach((t) => e.lineTo(...t)), e.stroke(), e.closePath();
+    },
+  },
+  y = {
+    prepare: (t) => t,
+    calculate(t, e) {
+      const { width: s, height: r } = e,
+        {
+          top: a,
+          right: h,
+          bottom: c,
+          left: l,
+          width: u,
+          height: g,
+        } = d(f(t, ['top', 'right', 'bottom', 'left', 'width', 'height']), (t, e) => [
+          t,
+          n(e) ? e : o(e) ? e({ containerWidth: s, containerHeight: r }) : void 0,
+        ]);
+      let p = 0,
+        w = 0,
+        x = 0,
+        m = 0;
+      if (u) (x = u), i(l) ? i(h) || (p = s - h - x) : (p = l);
+      else {
+        p = l || 0;
+        x = s - p - (h || 0);
+      }
+      if (i(g)) {
+        w = a || 0;
+        m = r - w - (c || 0);
+      } else (m = g), i(a) ? i(c) || (w = r - c - m) : (w = a);
+      let { borderRadius: y } = t;
+      return (
+        (y =
+          n(y) && y >= 0
+            ? y
+            : o(y)
+            ? y({ containerHeight: e.height, containerWidth: e.width, selfHeight: m, selfWidth: x })
+            : 0),
+        { ...t, x: p, y: w, width: x, height: m, borderRadius: y }
+      );
+    },
+    render(t, { ctx: e }) {
+      const {
+        x: o,
+        y: i,
+        width: a,
+        height: h,
+        backgroundColor: c,
+        border: d,
+        borderRadius: f,
+        shadowBlur: u,
+        shadowColor: g,
+        shadowOffsetX: p,
+        shadowOffsetY: x,
+      } = t;
+      let { lineWidth: m } = d || {};
+      (m = n(m) ? m : 0),
+        e.save(),
+        w({ shadowBlur: u, shadowColor: g, shadowOffsetX: p, shadowOffsetY: x, fillStyle: c }, e),
+        l({ x: o - m / 2, y: i - m / 2, w: a + m, h: h + m, r: f, ctx: e }),
+        (r(c) || s(c)) && e.fill(),
+        e.restore(),
+        d && m && (e.clip(), w({ ...d, strokeStyle: d.lineColor }, e), e.stroke());
+    },
+  },
+  b = {
+    async prepare(t) {
+      const { fontFamily: o, fontFamilySrc: i, content: n } = t,
+        s = [];
+      o && i && s.push([o, i]),
+        e(n) &&
+          n.forEach((t) => {
+            t.fontFamily && t.fontFamilySrc && s.push([t.fontFamily, t.fontFamilySrc]);
+          });
+      const c = [];
+      return (
+        s.forEach(([t, e]) => {
+          c.push(
+            (function (t, e) {
+              return r(t) && (h(e) || a(e))
+                ? new Promise((o, i) => {
+                    wx.loadFontFace({
+                      family: t,
+                      source: `url("${e}")`,
+                      global: !0,
+                      scopes: ['webview', 'native', 'skyline'],
+                      success() {
+                        o(!0);
+                      },
+                      fail(t) {
+                        i(t);
+                      },
+                    });
+                  })
+                : Promise.reject(new Error('字体文件链接错误！'));
+            })(t, e),
+          );
+        }),
+        await Promise.allSettled(c),
+        t
+      );
+    },
+    calculate(t, e, { ctx: s, maxWidth: r }) {
+      const { width: a, height: h } = e,
+        {
+          top: c,
+          right: l,
+          bottom: u,
+          left: g,
+          width: p,
+          height: w,
+        } = d(f(t, ['top', 'right', 'bottom', 'left', 'width', 'height']), (t, e) => [
+          t,
+          n(e) ? e : o(e) ? e({ containerWidth: a, containerHeight: h }) : void 0,
+        ]);
+      let x = 0,
+        m = 0,
+        y = 0,
+        b = 0;
+      p
+        ? ((y = p), i(g) ? i(l) || (x = a - l - y) : (x = g))
+        : i(g) || i(l)
+        ? (x = i(g) ? 0 : g)
+        : ((x = g), (y = a - g - l)),
+        i(w)
+          ? i(c) || i(u)
+            ? (m = i(c) ? 0 : c)
+            : ((m = c), (b = h - c - u))
+          : ((b = w), i(c) ? i(u) || (m = h - u - b) : (m = c));
+      const { height: W } = v(t, { maxWidth: y || r, ctx: s });
+      return y || (y = r), b || (b = W), { ...t, x: x, y: m, width: y, height: b };
+    },
+    render(t, { ctx: o }) {
+      const { x: i, y: s, width: a, height: h } = t;
+      o.rect(i, s, a, h),
+        o.clip(),
+        (function (t, o) {
+          let { content: i, textAlign: s, lineClamp: a, ellipsisContent: h } = t;
+          (a = n(a) && a > 0 ? a : 1 / 0), (h = r(h) ? h : '...');
+          const { ctx: c, maxWidth: l, x: d, y: f } = o;
+          c.save();
+          const u = P(t, { ctx: c });
+          let g = e(i) ? [...i] : [{ content: i }],
+            p = 0,
+            w = 1;
+          for (; g.length; ) {
+            const {
+                top: t,
+                bottom: e,
+                content: o,
+              } = W(g, { ctx: c, maxWidth: l, baseProps: u, suffix: w === a ? h : '' }),
+              i = o.length,
+              n = g[i - 1],
+              r = o[i - 1],
+              x = r.content.length === n.content.length;
+            p += t;
+            let y = 0;
+            if (o.length === g.length && x) {
+              const t = o.reduce((t, e) => t + e.width, 0);
+              'center' === s && (y = (l - t) / 2), 'right' === s && (y = l - t);
+            }
+            o.forEach((t) => {
+              const {
+                backgroundColor: e,
+                overLineY: o,
+                xOffset: i,
+                width: n,
+                underLineY: s,
+                textDecorationProps: r,
+                textDecoration: a,
+                color: h,
+                lineThroughY: l,
+              } = t;
+              if (
+                (e &&
+                  (c.save(),
+                  (c.fillStyle = e),
+                  c.fillRect(d + i + y, f + p + o, n, Math.abs(o) + Math.abs(s)),
+                  c.restore()),
+                c.save(),
+                P(t, { ctx: c, baseProps: u }),
+                O(t, { ctx: c, baseProps: u, x: d + i + y, y: f + p }),
+                ['overline', 'line-through', 'underline'].includes(a))
+              ) {
+                const t = 'overline' === a ? o : 'line-through' === a ? l : s,
+                  e = r.lineWidth && r.lineWidth > 0 ? r.lineWidth / 2 : 0.5,
+                  u = 'overline' === a ? -e : 'underline' === a ? e : 0;
+                m.render(
+                  {
+                    ...r,
+                    points: [
+                      [d + i + y, f + p + t + u],
+                      [d + i + y + n, f + p + t + u],
+                    ],
+                    lineColor: r.lineColor || h,
+                  },
+                  { ctx: c },
+                );
+              }
+              c.restore();
+            }),
+              w === a
+                ? (g = [])
+                : ((p += e),
+                  (g = g.slice(x ? i : i - 1)),
+                  x || (g[0] = { ...g[0], content: g[0].content.slice(r.content.length) })),
+              w++;
+          }
+          c.restore();
+        })(t, { maxWidth: a, ctx: o, x: i, y: s });
+    },
+  };
+function v(t, o) {
+  let { lineClamp: i, content: s } = t;
+  i = n(i) && i > 0 ? i : 1 / 0;
+  const { ctx: r, maxWidth: a } = o;
+  r.save();
+  const h = P(t, { ctx: r });
+  let c = e(s) ? [...s] : [{ content: s }],
+    l = 0,
+    d = 0,
+    f = 1;
+  for (; c.length; ) {
+    const { top: t, bottom: e, content: o } = W(c, { ctx: r, maxWidth: a, baseProps: h });
+    if (((l += t + e), (d += o.reduce((t, e) => t + e.width, 0)), f < i)) {
+      f++;
+      const t = o.length,
+        e = c[t - 1],
+        i = o[t - 1],
+        n = i.content.length === e.content.length;
+      (c = c.slice(n ? t : t - 1)), n || (c[0] = { ...c[0], content: c[0].content.slice(i.content.length) });
+    } else c = [];
+  }
+  return r.restore(), { width: d, height: l };
+}
+function W(t, e) {
+  const { ctx: i, maxWidth: s, baseProps: a } = e,
+    h = [],
+    c = [],
+    l = [];
+  let d = '',
+    f = 0;
+  for (let u = 0; u < t.length; u++) {
+    const g = t[u];
+    i.save();
+    const p = P(g, { ctx: i, baseProps: a }),
+      w = r(e.suffix) ? e.suffix : '',
+      x = r(e.suffix) ? S({ ...p, content: e.suffix }, { ctx: i }).width : 0;
+    let m;
+    for (let t = 0; t < g.content.length; t++) {
+      d += g.content[t];
+      const {
+        width: e,
+        fontBoundingBoxAscent: r,
+        fontBoundingBoxDescent: u,
+      } = S({ ...g, content: d + w }, { ctx: i, baseProps: a });
+      m = e;
+      const y = t === g.content.length - 1;
+      if (e + f > s || y) {
+        const t = r + u;
+        let { lineHeight: a } = p;
+        a = n(a) ? a : o(a) ? a(t) : 1.2 * t;
+        const g = Math.max((a - t) / 2, 0);
+        h.push(r + g), c.push(u + g);
+        const b = p.textBaseLine,
+          v = -r;
+        let W = -t / 2 + u;
+        const O = u;
+        if (
+          (['top', 'hanging'].includes(b) ? (W = t / 2 - r) : 'middle' === b && (W = 0),
+          l.push({
+            ...p,
+            content: y ? d : d.slice(0, -1) + w,
+            overLineY: v,
+            lineThroughY: W,
+            underLineY: O,
+            xOffset: f,
+            width: y ? e - x : m,
+          }),
+          e + f > s)
+        )
+          return i.restore(), { top: Math.max(...h), bottom: Math.max(...c), content: l };
+        y && ((f += e), (d = ''));
       }
     }
-    ctx.restore();
+    i.restore();
   }
-  return {
-    top: Math.max(...top),
-    bottom: Math.max(...bottom),
-    content: renderable,
-  };
+  return { top: Math.max(...h), bottom: Math.max(...c), content: l };
 }
-/**
- * 绘制文本
- */
-function draw(content, options) {
-  const { ctx, baseProps, x, y } = options;
-  ctx.save();
-  const props = settingProperty(content, { ctx, baseProps });
-  const draw = (props.textStyle === 'stroke' ? ctx.strokeText : ctx.fillText).bind(ctx);
-  if (!isNil(x) && !isNil(y)) {
-    draw(content.content, x, y);
-  }
-  ctx.restore();
+function O(t, e) {
+  const { ctx: o, baseProps: n, x: s, y: r } = e;
+  o.save();
+  const a = ('stroke' === P(t, { ctx: o, baseProps: n }).textStyle ? o.strokeText : o.fillText).bind(o);
+  i(s) || i(r) || a(t.content, s, r), o.restore();
 }
-/**
- * 测量文本
- */
-function measure(content, options) {
-  const { ctx, baseProps } = options;
-  ctx.save();
-  settingProperty(content, { ctx, baseProps });
-  const metrics = ctx.measureText(content.content);
-  ctx.restore();
-  return metrics;
+function S(t, e) {
+  const { ctx: o, baseProps: i } = e;
+  o.save(), P(t, { ctx: o, baseProps: i });
+  const n = o.measureText(t.content);
+  return o.restore(), n;
 }
-/**
- * 设置字体相关属性，并返回标准化后的 baseProps 所需属性
- */
-function settingProperty(properties, options) {
-  const props = { ...properties };
-  const { ctx, baseProps = {} } = options;
-  const strategies = {
-    lineHeight: [(v) => isNumber(v) || (isString(v) && v.endsWith('%')), '120%'],
-    fontSize: [isNumber, 'normal'],
-    fontFamily: [isString, 'sans-serif'],
-    fontWeight: [(v) => [100, 200, 300, 400, 500, 600, 700, 800, 900, 'normal', 'bold'].includes(v), 'normal'],
-    color: [(v) => isString(v) || isObject(v)],
-    textBaseLine: [
-      (v) => ['alphabetic', 'bottom', 'hanging', 'ideographic', 'middle', 'top'].includes(v),
-      'alphabetic',
-    ],
-    letterSpacing: [isNumber],
-    wordSpacing: [isNumber],
-    fontStyle: [(v) => ['italic', 'normal'].includes(v), 'normal'],
-    textDecoration: [(v) => ['underline', 'overline', 'line-through'].includes(v)],
-    textDecorationProps: [isObject, {}],
-    textStyle: [(v) => ['fill', 'stroke'].includes(v), 'fill'],
-    strokeProps: [isObject, {}],
-    backgroundColor: [(v) => isString(v) || isObject(v)],
-    shadowBlur: [isNumber],
-    shadowColor: [isString],
-    shadowOffsetX: [(v) => isNumber(v) || (isString(v) && v.endsWith('%'))],
-    shadowOffsetY: [(v) => isNumber(v) || (isString(v) && v.endsWith('%'))],
-  };
-  Object.entries(strategies).forEach(([key, value]) => {
-    if (!value[0](props[key])) {
-      props[key] = baseProps[key] || value[1];
-    }
-  });
-  // // 设置 canvas 属性
-  settingCanvasProps(
-    {
-      ...props,
-      ...props.strokeProps,
-      fillStyle: props.color,
-      strokeStyle: props.color,
-      backgroundColor: undefined,
-    },
-    ctx,
-  );
-  return props;
-}
-
-/**
- * 标准盒子元素参数规范化
- */
-const standardStrategy = memo(
-  (props, options) => {
-    const { width: containerWidth, height: containerHeight, x: containerX, y: containerY } = options;
-    const normalizeOptions = mapObject(props, (key, value) => {
-      if (isNil(value) || !['top', 'right', 'bottom', 'left', 'width', 'height'].includes(key)) return [key, value];
-      const isVertical = ['top', 'bottom', 'height'].includes(key);
-      return [key, calcSize(value, isVertical ? containerHeight : containerWidth) || undefined];
-    });
-    const { top, right, bottom, left, width: elementWidth, height: elementHeight } = normalizeOptions;
-    let x = 0;
-    let y = 0;
-    let width = 0;
-    let height = 0;
-    if (!isNil(elementWidth)) {
-      width = elementWidth;
-      if (!isNil(left)) x = left;
-      else if (!isNil(right)) x = containerWidth - right - width;
-      else x = 0;
-    } else {
-      x = left || 0;
-      const x2 = right || 0;
-      width = containerWidth - x - x2;
-    }
-    if (!isNil(elementHeight)) {
-      height = elementHeight;
-      if (!isNil(top)) y = top;
-      else if (!isNil(bottom)) y = containerHeight - bottom - height;
-      else y = 0;
-    } else {
-      y = top || 0;
-      const y2 = bottom || 0;
-      height = containerHeight - y - y2;
-    }
-    return {
-      x: containerX + x,
-      left: containerX + x,
-      y: containerY + y,
-      top: containerY + y,
-      right: undefined,
-      bottom: undefined,
-      width,
-      height,
+function P(t, e) {
+  const i = { ...t },
+    { ctx: a, baseProps: h = {} } = e,
+    c = {
+      lineHeight: [(t) => n(t) || o(t), '120%'],
+      fontSize: [n, 'normal'],
+      fontFamily: [r, 'sans-serif'],
+      fontWeight: [(t) => [100, 200, 300, 400, 500, 600, 700, 800, 900, 'normal', 'bold'].includes(t), 'normal'],
+      color: [(t) => r(t) || s(t)],
+      textBaseLine: [
+        (t) => ['alphabetic', 'bottom', 'hanging', 'ideographic', 'middle', 'top'].includes(t),
+        'alphabetic',
+      ],
+      letterSpacing: [n],
+      wordSpacing: [n],
+      fontStyle: [(t) => ['italic', 'normal'].includes(t), 'normal'],
+      textDecoration: [(t) => ['underline', 'overline', 'line-through'].includes(t)],
+      textDecorationProps: [s, {}],
+      textStyle: [(t) => ['fill', 'stroke'].includes(t), 'fill'],
+      strokeProps: [s, {}],
+      backgroundColor: [(t) => r(t) || s(t)],
+      shadowBlur: [n],
+      shadowColor: [r],
+      shadowOffsetX: [(t) => n(t) || (r(t) && t.endsWith('%'))],
+      shadowOffsetY: [(t) => n(t) || (r(t) && t.endsWith('%'))],
     };
-  },
-  {
-    key(props, options) {
-      const { top, right, bottom, left, width, height } = props;
-      const { width: containerWidth, height: containerHeight, x: containerX, y: containerY } = options;
-      return JSON.stringify({
-        top,
-        right,
-        bottom,
-        left,
-        width,
-        height,
-        containerWidth,
-        containerHeight,
-        containerX,
-        containerY,
+  return (
+    Object.entries(c).forEach(([t, e]) => {
+      e[0](i[t]) || (i[t] = h[t] || e[1]);
+    }),
+    w({ ...i, ...i.strokeProps, fillStyle: i.color, strokeStyle: i.color }, a),
+    i
+  );
+}
+class C {
+  options;
+  configs = [];
+  cache = [];
+  ctx = null;
+  dpr = 1;
+  plugins = { line: m, rect: y, image: x, text: b };
+  constructor(t) {
+    this.options = t;
+    let { node: e, width: i, height: s, dpr: r } = t;
+    if (((i = Number.parseFloat(i)), (s = Number.parseFloat(s)), !o(e?.getContext) || !i || !s))
+      return void console.error(`canvasPoster 参数错误，当前为：${t}`);
+    const a = e.getContext('2d');
+    a
+      ? ((r = (function (t) {
+          if (n(t) && t > 0) return t;
+          {
+            const { pixelRatio: t } = wx.getWindowInfo();
+            return t;
+          }
+        })(r)),
+        (e.width = i * r),
+        (e.height = s * r),
+        a.scale(r, r),
+        (this.dpr = r),
+        (this.ctx = a))
+      : console.error('获取 Canvas 上下文失败');
+  }
+  async draw(t) {
+    if (e(t)) {
+      this.configs = t;
+      for (let e = 0; e < t.length; e++) {
+        const i = t[e];
+        if (o(i)) {
+          const t = { ctx: this.ctx, canvas: this.options.node, dpr: this.dpr };
+          await i(t);
+        } else if (s(i) && i.type in this.plugins) {
+          const t = this.plugins[i.type],
+            o = await this.travelContainer(e),
+            n = o[o.length - 1],
+            { x: s, y: r } = o.slice(0, -1).reduce((t, e) => ((t.x += e.x), (t.y += e.y), t), { x: 0, y: 0 });
+          this.ctx.save(), this.ctx.translate(s, r);
+          const a = Number.parseFloat(n.rotate);
+          a && c(a, { x: n.x, y: n.y, width: n.width, height: n.height, ctx: this.ctx }),
+            t.render(n, { ...this.options, ctx: this.ctx }),
+            this.ctx.restore();
+        }
+      }
+    } else console.error(`draw 参数错误，当前为：${t}`);
+  }
+  async travelContainer(t, e = [{ x: 0, y: 0, width: this.options.width, height: this.options.height }]) {
+    const i = this.configs[t],
+      s = i.relativeTo && this.configs.findIndex((t) => !o(t) && t.id === i.relativeTo);
+    n(s) && s > -1 && (e = await this.travelContainer(s, e));
+    const r = await this.normalize(t, e);
+    return [...e, r];
+  }
+  async normalize(t, e) {
+    const o = this.configs[t];
+    this.cache[t] || (this.cache[t] = {});
+    const i = this.cache[t],
+      n = this.plugins[o.type],
+      s = e[e.length - 1],
+      r = this.options.width - e.reduce((t, e) => t + e.x, 0);
+    let a = i.prepare;
+    a || ((a = await n.prepare(o, { canvas: this.options.node })), (i.prepare = a));
+    let h = i.calculate;
+    return h || ((h = n.calculate(a, s, { ctx: this.ctx, maxWidth: r })), (i.calculate = h)), h;
+  }
+  measure(t) {
+    return S(t, { ctx: this.ctx });
+  }
+  async measureHeight(t, e) {
+    return await b.prepare(t), v(t, { ctx: this.ctx, maxWidth: e || this.options.width });
+  }
+}
+function F(t, e) {
+  let { type: o, quality: i, fileName: a } = s(e) ? e : {};
+  return (
+    (o = r(o) && o.startsWith('image/') ? o : void 0),
+    (i = n(i) && i > 0 && i <= 1 ? i : 1),
+    new Promise((e, n) => {
+      wx.canvasToTempFilePath({
+        canvas: t,
+        fileType: 'image/jpeg' === o ? 'jpg' : 'png',
+        quality: i,
+        success({ tempFilePath: t }) {
+          wx.saveImageToPhotosAlbum({
+            filePath: t,
+            success() {
+              e(t);
+            },
+            fail(t) {
+              n(t);
+            },
+          });
+        },
+        fail(t) {
+          n(t);
+        },
       });
-    },
-    lruMax: 20,
-  },
-);
-/**
- * 线条参数规范化
- */
-const lineStrategy = memo(
-  (props, options) => {
-    const [first = [0, 0], ...points] = props?.points || [];
-    const { width, height, x, y } = options;
-    const [firstX, firstY] = first.map((item, index) => calcSize(item, [width, height][index]));
-    let minX = firstX;
-    let minY = firstY;
-    let maxX = firstX;
-    let maxY = firstY;
-    if (!points.length) return { points: [] };
-    const normalizedPoints = points.reduce((p, c) => {
-      const [pointX, pointY] = (isArray(c) ? c : []).map((item, index) => calcSize(item, [width, height][index]));
-      if ([pointX, pointY].some(Number.isNaN)) return p;
-      minX = Math.min(minX, pointX);
-      minY = Math.min(minY, pointY);
-      maxX = Math.max(maxX, pointX);
-      maxY = Math.max(maxY, pointY);
-      return [...p, [pointX, pointY]];
-    }, []);
-    return {
-      width: maxX - minX || 1,
-      height: maxY - minY || 1,
-      x: x + minX,
-      y: y + minY,
-      points: [[firstX, firstY], ...normalizedPoints].map(([pointX, pointY]) => [x + pointX, y + pointY]),
-    };
-  },
-  {
-    key(props, options) {
-      const { points } = props;
-      const { width, height, x, y } = options;
-      return JSON.stringify({ points, width, height, x, y });
-    },
-    lruMax: 20,
-  },
-);
-const textStrategy = memo((props, options, canvasOptions) => {
-  const box = standardStrategy(props, options);
-  if (isNil(props.height) && isNil(props.bottom))
-    box.height = enhancedMeasure(props, { maxWidth: box.width, ctx: canvasOptions.ctx });
-  return box;
-});
-const normalizeStrategies = {
-  rect: standardStrategy,
-  text: textStrategy,
-  image: standardStrategy,
-  line: lineStrategy,
-};
-/**
- * 绘制参数标准化中间层
- */
-function normalizeElement(element, elements, options) {
-  const { width, height } = options;
-  const strategy = normalizeStrategies[element.type];
-  if (!element.relativeTo) return strategy(element, { width, height, x: 0, y: 0 }, options);
-  const relativeElement = elements.find((item) => !isFunction(item) && item.id === element.relativeTo);
-  if (!relativeElement) return strategy(element, { width, height, x: 0, y: 0 }, options);
-  const { x, y, width: containerWidth, height: containerHeight } = normalizeElement(relativeElement, elements, options);
-  return strategy(element, { width: containerWidth, height: containerHeight, x, y }, options);
-}
-/**
- * 标准化数值与百分比字符串
- */
-function calcSize(val, base) {
-  if (isString(val) && val.endsWith('%')) return (base * Number.parseFloat(val)) / 100;
-  return Number.parseFloat(val);
-}
-
-/**
- * 绘制 Canvas 矩形
- * @web
- * @miniprogram
- */
-function renderRect(renderOptions, contextOptions) {
-  const { ctx, width: canvasWidth, height: canvasHeight } = contextOptions;
-  ctx.save();
-  // 参数标准化
-  const { x, y, width, height } = standardStrategy(renderOptions, {
-    width: canvasWidth,
-    height: canvasHeight,
-    x: 0,
-    y: 0,
-  });
-  if (!width || !height) return;
-  const { rotate, borderRadius, backgroundColor } = renderOptions;
-  // 旋转
-  if (rotate) rotateCanvasElement(rotate, { x, y, width, height, ctx });
-  // canvas 属性设置
-  const borderSize = settingCanvasProps(renderOptions, ctx);
-  ctx.save();
-  const r = radiusClipPath({ x, y, width, height, borderRadius, ctx, borderSize });
-  // 填充
-  if (backgroundColor) ctx.fill();
-  // 绘制 border
-  // border 较粗时，外边缘圆角会大于需要的圆角，所以采用裁剪
-  renderBorder({ x, y, width, height, r, borderSize, ctx });
-  ctx.restore();
-  ctx.restore();
-}
-/**
- * canvas 圆角矩形
- * @param options
- * @web
- * @miniprogram
- */
-function roundRect(options) {
-  let { x, y, w, h, r, ctx } = options;
-  const min_size = Math.min(w, h);
-  if (r > min_size / 2) r = min_size / 2;
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-}
-
-function radiusClipPath(options) {
-  const { x, y, width, height, borderRadius, borderSize, ctx } = options;
-  // 圆角半径标准化
-  let r = Number.parseFloat(borderRadius) || 0;
-  if (isString(borderRadius) && borderRadius.endsWith('%')) r = (r * width) / 100;
-  // 圆角裁剪路径
-  roundRect({
-    x: x - borderSize,
-    y: y - borderSize,
-    w: width + 2 * borderSize,
-    h: height + 2 * borderSize,
-    r,
-    ctx,
-  });
-  ctx.clip();
-  return r;
-}
-function renderBorder(options) {
-  const { x, y, width, height, r, borderSize, ctx } = options;
-  if (borderSize) {
-    ctx.lineWidth = borderSize * 2;
-    roundRect({
-      x: x - borderSize,
-      y: y - borderSize,
-      w: width + 2 * borderSize,
-      h: height + 2 * borderSize,
-      r,
-      ctx,
-    });
-    ctx.stroke();
-  }
-}
-/**
- * 接收 dpr 判断是否可用，不可用则获取设备 dpr
- */
-function getDpr(dpr) {
-  if (isNumber(dpr) && dpr > 0) return dpr;
-  {
-    const { pixelRatio } = wx.getWindowInfo();
-    return pixelRatio;
-  }
-}
-
-/**
- * 绘制 Canvas 图片
- * @web
- * @miniprogram
- */
-async function renderImage(renderOptions, contextOptions) {
-  const { ctx, canvas, width: canvasWidth, height: canvasHeight } = contextOptions;
-  ctx.save();
-  // 参数标准化
-  const { x, y, width, height } = standardStrategy(renderOptions, {
-    width: canvasWidth,
-    height: canvasHeight,
-    x: 0,
-    y: 0,
-  });
-  const { rotate, borderRadius, src, flipX, flipY } = renderOptions;
-  // 获取图片
-  let image;
-  let imageWidth;
-  let imageHeight;
-  try {
-    const res = await downloadImage(src, canvas);
-    image = res.image;
-    imageWidth = res.width;
-    imageHeight = res.height;
-  } catch (err) {
-    console.warn(`图片加载失败：`, err);
-    ctx.restore();
-    return;
-  }
-  // 旋转
-  if (rotate) rotateCanvasElement(rotate, { x, y, width, height, ctx });
-  // canvas 属性设置
-  const borderSize = settingCanvasProps(renderOptions, ctx);
-  ctx.save();
-  const r = radiusClipPath({ x, y, width, height, borderRadius, ctx, borderSize });
-  // 翻转
-  ctx.save();
-  const drawProps = calcDrawProps({ ...renderOptions, x, y, width, height, imageWidth, imageHeight });
-  ctx.translate(flipX ? canvasWidth : 0, flipY ? canvasHeight : 0);
-  ctx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
-  if (flipX || flipY) {
-    const [dx, dy, dWidth, dHeight] = drawProps.slice(4);
-    drawProps[4] = flipX ? canvasWidth - dx - dWidth : dx;
-    drawProps[5] = flipY ? canvasHeight - dy - dHeight : dy;
-  }
-  // 绘制图片
-  ctx.drawImage(image, ...drawProps);
-  ctx.restore();
-  // 绘制边框
-  // border 去掉 shadow
-  ctx.shadowColor = '#00000000';
-  // border 较粗时，外边缘圆角会大于需要的圆角，所以采用裁剪
-  renderBorder({ x, y, width, height, r, borderSize, ctx });
-  ctx.restore();
-  ctx.restore();
-}
-/**
- * 计算 drawImage 参数
- */
-function calcDrawProps(options) {
-  let { x, y, width, height, imageWidth, imageHeight, sourceX, sourceY, sourceWidth, sourceHeight, mode } = options;
-  sourceX = calcSize(sourceX, imageWidth) || 0;
-  sourceY = calcSize(sourceY, imageHeight) || 0;
-  sourceWidth = calcSize(sourceWidth, imageWidth) || imageWidth;
-  sourceHeight = calcSize(sourceHeight, imageHeight) || imageHeight;
-  if (width && height) {
-    const imageRatio = sourceWidth / sourceHeight;
-    const containerRatio = width / height;
-    // 默认的 scaleToFill 无需处理
-    if (mode === 'aspectFill') {
-      if (containerRatio > imageRatio) {
-        // 宽度填满，高度裁剪
-        const newHeight = sourceWidth / containerRatio;
-        sourceHeight = newHeight;
-      } else {
-        // 高度填满，宽度裁剪
-        const newWidth = sourceHeight * containerRatio;
-        sourceWidth = newWidth;
-      }
-    } else if (mode === 'aspectFit') {
-      if (containerRatio > imageRatio) {
-        // 高度填满，宽度留白
-        const newWidth = height * imageRatio;
-        x += (width - newWidth) / 2;
-        width = newWidth;
-      } else {
-        // 宽度填满，高度留白
-        const newHeight = width / imageRatio;
-        y += (height - newHeight) / 2;
-        height = newHeight;
-      }
-    }
-  }
-  // 宽高仅设置了一个的时候，根据图片比例设置另一个
-  else if (width || height) {
-    if (width) height = (sourceHeight * sourceWidth) / width;
-    if (height) width = (sourceWidth * sourceHeight) / height;
-  }
-  // 未设置宽高时使用图片宽高
-  else {
-    width = sourceWidth;
-    height = sourceHeight;
-  }
-  return [sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height];
-}
-
-/**
- * 绘制 Canvas 文字
- * @web
- * @miniprogram
- */
-function renderText(renderOptions, contextOptions) {
-  const { width: canvasWidth, height: canvasHeight, ctx } = contextOptions;
-  // 参数标准化
-  const { x, y, width, height } = textStrategy(
-    renderOptions,
-    { width: canvasWidth, height: canvasHeight, x: 0, y: 0 },
-    contextOptions,
+    })
   );
-  // 旋转
-  if (renderOptions.rotate) rotateCanvasElement(renderOptions.rotate, { x, y, width, height, ctx });
-  // 裁剪区域
-  ctx.save();
-  ctx.rect(x, y, width, height);
-  ctx.clip();
-  // 绘制
-  enhancedDraw(renderOptions, { maxWidth: width, ctx, x, y });
-  ctx.restore();
 }
-
-/**
- * 配置式生成 Canvas 海报
- * @web
- * @miniprogram
- */
-async function canvasPoster(elements, options) {
-  let { node: canvas, width, height, dpr } = options;
-  width = Number.parseFloat(width);
-  height = Number.parseFloat(height);
-  dpr = getDpr(dpr);
-  if (!isArray(elements) || !isFunction(canvas?.getContext) || !width || !height) {
-    console.error(`请传入正确的参数，当前 elements：${elements}、options：${options}`);
-    return;
-  }
-  const ctx = canvas.getContext('2d');
-  if (!ctx) {
-    console.error('获取 Canvas 上下文失败');
-    return;
-  }
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  ctx.scale(dpr, dpr);
-  const contextOptions = { ctx, canvas, width, height };
-  // 图片预加载
-  elements.forEach((element) => {
-    if (!isFunction(element) && element.type === 'image' && element.src) {
-      downloadImage(element.src, canvas);
-    }
-  });
-  // 绘制元素
-  for (let i = 0, l = elements.length; i < l; i++) {
-    // 校验配置
-    const element = elements[i];
-    if (!isObject(element) || (!isFunction(element) && !['text', 'image', 'rect', 'line'].includes(element.type))) {
-      console.warn(`请检查配置：${element}`);
-      continue;
-    }
-    // 优先使用自定义渲染函数
-    if (isFunction(element)) {
-      ctx.save();
-      await element({ ctx: ctx, canvas: canvas, dpr });
-      ctx.restore();
-      continue;
-    }
-    const normalized = normalizeElement(element, elements, contextOptions);
-    switch (element.type) {
-      case 'line':
-        renderLine({ ...element, ...normalized }, contextOptions);
-        break;
-      case 'rect':
-        renderRect({ ...element, ...normalized }, contextOptions);
-        break;
-      case 'image':
-        await renderImage({ ...element, ...normalized }, contextOptions);
-        break;
-      case 'text':
-        renderText({ ...element, ...normalized }, contextOptions);
-        break;
-    }
-  }
-}
-
-/**
- * 将微信小程序的回调式异步 API 转换为 Promise 形式
- * @param method - 要转换的异步方法（如 wx.request、wx.login 等）
- * @param options - 方法的配置参数（不包含 success、fail 回调）
- * @returns 返回 Promise 对象，resolve 时传入 success 回调的参数，reject 时传入 fail 回调的参数
- * @example
- * ```ts
- * // 转换 wx.login 接口
- * const res = await wxPromisify(wx.login, {})
- * console.log(res.code)
- *
- * // 转换 wx.request 接口
- * const res = await wxPromisify(wx.request, {
- *   url: 'https://api.example.com/data',
- *   method: 'GET'
- * })
- * console.log(res.data)
- * ```
- * @miniprogram
- */
-function wxPromisify(method, options) {
-  return new Promise((resolve, reject) => {
-    method({
-      ...options,
-      success: resolve,
-      fail: reject,
-    });
-  });
-}
-
-export { canvasPoster, saveCanvasAsImage, wxPromisify };
+export { C as CanvasPoster, F as saveCanvasAsImage };
