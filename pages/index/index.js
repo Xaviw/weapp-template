@@ -17,6 +17,7 @@ Anim.Page({
       '/demo/pages/map/index',
       '/demo/pages/text-collapse/index',
       '/demo/pages/canvas/index',
+      '/demo/pages/anim/page1/index',
     ];
     wx.navigateTo({
       url: pages[type],

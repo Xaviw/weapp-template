@@ -11,6 +11,11 @@ class UserStore {
 
   setUserInfo(userInfo) {
     this.data.userInfo = userInfo;
+    this.update();
+  }
+
+  setUserInfoApp(userInfo) {
+    this.data.userInfo = userInfo;
     this.updateApp();
   }
 

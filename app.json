@@ -10,7 +10,9 @@
         "pages/html-whitespace-sensitivity/index",
         "pages/map/index",
         "pages/text-collapse/index",
-        "pages/canvas/index"
+        "pages/canvas/index",
+        "pages/anim/page1/index",
+        "pages/anim/page2/index"
       ]
     }
   ],

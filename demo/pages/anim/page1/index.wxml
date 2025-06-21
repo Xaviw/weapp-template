@@ -1,0 +1,7 @@
+<!--demo/pages/anim/page1/index.wxml-->
+<t-navbar left-arrow title="page1" />
+<button bind:tap="add">add</button>
+<button bind:tap="page2">page2</button>
+<view>userStore.userInfo.time: {{ userStore.userInfo.time }}</view>
+<view>userInfo.time: {{ userInfo.time }}</view>
+<view>watchedUserInfo.time: {{ watchedUserInfo.time }}</view>
