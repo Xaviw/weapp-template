@@ -1,30 +1,25 @@
 // demo/pages/anim/page2/index.js
 import Anim from '@ssv-lab/anim';
-import userStore from '@/stores/user';
+import testStore from '@/stores/test';
 
 Anim.Page({
-  data: {
-    watchedUserInfo: {},
-  },
+  data: {},
   store: {
-    userStore,
+    testStore,
   },
   computed: {
-    userInfo(data) {
-      return data.userStore.userInfo;
+    simpleValue(data) {
+      return data.testStore.simpleValue;
     },
-  },
-  watch: {
-    'userStore.userInfo': (userInfo) => {
-      this.setData({ watchedUserInfo: userInfo });
+    objectValue(data) {
+      return data.testStore.objectValue;
     },
   },
   onLoad() {
-    console.log('this.data.userStore.userInfo.time', this.data.userStore.userInfo.time);
-    console.log('this.data.userInfo.time', this.data.userInfo.time);
-    console.log('this.data.watchedUserInfo.time', this.data.watchedUserInfo.time);
-  },
-  add() {
-    userStore.setUserInfo({ time: Date.now() });
+    console.log('this.data.testStore.simpleValue', this.data.testStore.simpleValue);
+    console.log('this.data.simpleValue', this.data.simpleValue);
+
+    console.log('this.data.testStore.objectValue.count', this.data.testStore.objectValue.count);
+    console.log('this.data.objectValue.count', this.data.objectValue.count);
   },
 });

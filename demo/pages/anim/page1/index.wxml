@@ -1,7 +1,9 @@
 <!--demo/pages/anim/page1/index.wxml-->
 <t-navbar left-arrow title="page1" />
-<button bind:tap="add">add</button>
-<button bind:tap="page2">page2</button>
-<view>userStore.userInfo.time: {{ userStore.userInfo.time }}</view>
-<view>userInfo.time: {{ userInfo.time }}</view>
-<view>watchedUserInfo.time: {{ watchedUserInfo.time }}</view>
+<button bind:tap="setSimpleValue">setSimpleValue: {{ simpleCount }}</button>
+<button bind:tap="setObjectValue">setObjectValue: {{ objectCount }}</button>
+<button bind:tap="gotoPage2">gotoPage2</button>
+<view>testStore.simpleValue: {{ testStore.simpleValue }}</view>
+<view>simpleValue: {{ simpleValue }}</view>
+<view>testStore.objectValue.count: {{ testStore.objectValue.count }}</view>
+<view>objectValue.count: {{ objectValue.count }}</view>

@@ -1,31 +1,44 @@
 // demo/pages/anim/page1/index.js
 import Anim from '@ssv-lab/anim';
-import userStore from '@/stores/user';
+import testStore from '@/stores/test';
 
 Anim.Page({
   data: {
-    watchedUserInfo: {},
+    simpleCount: 0,
+    objectCount: 0,
   },
   store: {
-    userStore,
+    testStore,
   },
   computed: {
-    userInfo(data) {
-      return data.userStore.userInfo;
+    simpleValue(data) {
+      return data.testStore.simpleValue;
+    },
+    objectValue(data) {
+      return data.testStore.objectValue;
     },
   },
   watch: {
-    'userStore.userInfo'(userInfo) {
-      this.setData({ watchedUserInfo: userInfo });
+    'testStore.simpleValue'(value) {
+      console.log('watch testStore.simpleValue', value);
+    },
+    'testStore.objectValue'(value) {
+      console.log('watch testStore.objectValue', value);
     },
   },
-  add() {
-    userStore.setUserInfo({ time: Date.now() });
-    console.log('this.data.userStore.userInfo.time', this.data.userStore.userInfo.time);
-    console.log('this.data.userInfo.time', this.data.userInfo.time);
-    console.log('this.data.watchedUserInfo.time', this.data.watchedUserInfo.time);
+  setSimpleValue() {
+    this.setData({ simpleCount: this.data.simpleCount + 1 });
+    testStore.updateSimpleValue(this.data.simpleCount);
+    console.log('this.data.testStore.simpleValue', this.data.testStore.simpleValue);
+    console.log('this.data.simpleValue', this.data.simpleValue);
   },
-  page2() {
+  setObjectValue() {
+    this.setData({ objectCount: this.data.objectCount + 1 });
+    testStore.updateObjectValue({ count: this.data.objectCount });
+    console.log('this.data.testStore.objectValue.count', this.data.testStore.objectValue.count);
+    console.log('this.data.objectValue.count', this.data.objectValue.count);
+  },
+  gotoPage2() {
     wx.navigateTo({
       url: '/demo/pages/anim/page2/index',
     });
