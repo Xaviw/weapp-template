@@ -1,0 +1,38 @@
+<t-navbar left-arrow title="扭蛋机" />
+
+<view class="page">
+  <view class="container">
+    <!-- 背景 -->
+    <image src="./images/bg.png" class="container-bg" />
+
+    <!-- 旋钮 -->
+    <image
+      src="./images/button.png"
+      class="gacha-button {{ isDrawing ? 'gacha-button-running' : '' }}"
+      bind:tap="handleStart"
+    />
+
+    <!-- 扭蛋容器 -->
+    <view class="gacha-container">
+      <block wx:for="{{ capsules }}" wx:key="id">
+        <view
+          class="gacha-capsule gacha-capsule-pos-{{ item.pos }} gacha-capsule-depth-{{ item.depth }} {{ isMixing ? 'gacha-capsule-run gacha-capsule-run-' : 'gacha-capsule-idle gacha-capsule-idle-' }}{{ item.path }}"
+        >
+          <image
+            src="./images/gacha.png"
+            class="gacha-capsule-img"
+            mode="aspectFit"
+            style="transform: rotate({{ item.rotate }}deg);"
+          />
+        </view>
+      </block>
+    </view>
+
+    <!-- 扭蛋出口 -->
+    <view class="gacha-export">
+      <view wx:if="{{ showExportCapsule }}" class="gacha-export-capsule">
+        <image src="./images/gacha.png" class="gacha-export-capsule-img" mode="aspectFit" />
+      </view>
+    </view>
+  </view>
+</view>

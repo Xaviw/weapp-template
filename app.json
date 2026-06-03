@@ -13,7 +13,8 @@
         "pages/canvas/index",
         "pages/anim/page1/index",
         "pages/anim/page2/index",
-        "pages/tracking/page1/index"
+        "pages/tracking/page1/index",
+        "pages/gacha/index"
       ]
     }
   ],

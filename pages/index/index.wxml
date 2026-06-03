@@ -6,4 +6,5 @@
 <button bind:tap="navigate" data-type="4">collapse-text</button>
 <button bind:tap="navigate" data-type="5">canvas</button>
 <button bind:tap="navigate" data-type="6">Anim</button>
+<button bind:tap="navigate" data-type="7">扭蛋机</button>
 <view>foo<!-- c -->bar</view>

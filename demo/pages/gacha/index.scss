@@ -1,0 +1,523 @@
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.container {
+  position: relative;
+  width: 750rpx;
+  height: 834rpx;
+  overflow: hidden;
+}
+
+.container-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gacha-button {
+  position: absolute;
+  left: 308rpx;
+  bottom: 168rpx;
+  z-index: 4;
+  width: 122rpx;
+  height: 122rpx;
+  transform-origin: center;
+  transition: transform 0.28s ease;
+}
+
+.gacha-button-running {
+  transform: rotate(90deg);
+}
+
+.gacha-container {
+  position: absolute;
+  left: 139rpx;
+  top: 83rpx;
+  right: 139rpx;
+  z-index: 2;
+  height: 472rpx;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.gacha-export {
+  position: absolute;
+  right: 164rpx;
+  bottom: 125rpx;
+  z-index: 5;
+  width: 85rpx;
+  height: 99rpx;
+  overflow: hidden;
+}
+
+.gacha-capsule {
+  position: absolute;
+  width: 128rpx;
+  height: 128rpx;
+  will-change: transform;
+}
+
+.gacha-capsule-img {
+  display: block;
+  width: 128rpx;
+  height: 128rpx;
+  transform-origin: center;
+}
+
+.gacha-capsule-depth-back {
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.gacha-capsule-depth-mid {
+  z-index: 2;
+  opacity: 0.96;
+}
+
+.gacha-capsule-depth-front {
+  z-index: 3;
+}
+
+.gacha-capsule-pos-1 {
+  left: 52rpx;
+  bottom: 110rpx;
+}
+
+.gacha-capsule-pos-2 {
+  left: 170rpx;
+  bottom: 110rpx;
+}
+
+.gacha-capsule-pos-3 {
+  left: 288rpx;
+  bottom: 110rpx;
+}
+
+.gacha-capsule-pos-4 {
+  left: 110rpx;
+  bottom: 220rpx;
+}
+
+.gacha-capsule-pos-5 {
+  left: 228rpx;
+  bottom: 220rpx;
+}
+
+.gacha-capsule-pos-6 {
+  left: 20rpx;
+  bottom: 214rpx;
+}
+
+.gacha-capsule-pos-7 {
+  left: 342rpx;
+  bottom: 214rpx;
+}
+
+.gacha-capsule-pos-8 {
+  left: 168rpx;
+  bottom: 330rpx;
+}
+
+.gacha-capsule-pos-9 {
+  left: 286rpx;
+  bottom: 328rpx;
+}
+
+.gacha-capsule-idle-1,
+.gacha-capsule-idle-4,
+.gacha-capsule-idle-7 {
+  animation: gacha-idle-a 2.4s ease-in-out infinite;
+}
+
+.gacha-capsule-idle-2,
+.gacha-capsule-idle-5,
+.gacha-capsule-idle-8 {
+  animation: gacha-idle-b 2.8s ease-in-out infinite;
+}
+
+.gacha-capsule-idle-3,
+.gacha-capsule-idle-6,
+.gacha-capsule-idle-9 {
+  animation: gacha-idle-c 3s ease-in-out infinite;
+}
+
+.gacha-capsule-run {
+  animation-duration: 2.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.gacha-capsule-run-1 {
+  animation-name: gacha-around-1;
+}
+
+.gacha-capsule-run-2 {
+  animation-name: gacha-around-2;
+}
+
+.gacha-capsule-run-3 {
+  animation-name: gacha-around-3;
+}
+
+.gacha-capsule-run-4 {
+  animation-name: gacha-around-4;
+}
+
+.gacha-capsule-run-5 {
+  animation-name: gacha-around-5;
+}
+
+.gacha-capsule-run-6 {
+  animation-name: gacha-around-6;
+}
+
+.gacha-capsule-run-7 {
+  animation-name: gacha-around-7;
+}
+
+.gacha-capsule-run-8 {
+  animation-name: gacha-around-8;
+}
+
+.gacha-capsule-run-9 {
+  animation-name: gacha-around-9;
+}
+
+.gacha-export-capsule {
+  position: absolute;
+  left: 3rpx;
+  top: 13rpx;
+  width: 78rpx;
+  height: 78rpx;
+  animation: gacha-export-move 0.72s cubic-bezier(0.28, 0, 0.16, 1) forwards;
+  transform: translate3d(-78rpx, -72rpx, 0);
+  will-change: transform;
+}
+
+.gacha-export-capsule-img {
+  display: block;
+  width: 78rpx;
+  height: 78rpx;
+  animation: gacha-export-roll 0.72s linear forwards;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes gacha-idle-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(5rpx, -4rpx, 0);
+  }
+}
+
+@keyframes gacha-idle-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(-4rpx, 4rpx, 0);
+  }
+}
+
+@keyframes gacha-idle-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(3rpx, 5rpx, 0);
+  }
+}
+
+@keyframes gacha-export-move {
+  to {
+    transform: translate3d(4rpx, 8rpx, 0);
+  }
+}
+
+@keyframes gacha-export-roll {
+  from {
+    transform: rotate(-220deg) scale(0.78);
+  }
+
+  to {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes gacha-around-1 {
+  13% {
+    transform: translate(220rpx, -124rpx);
+  }
+
+  30% {
+    transform: translate(132rpx, -292rpx);
+  }
+
+  48% {
+    transform: translate(-34rpx, -164rpx);
+  }
+
+  66% {
+    transform: translate(198rpx, -64rpx);
+  }
+
+  82% {
+    transform: translate(54rpx, -20rpx);
+  }
+
+  92% {
+    transform: translate(12rpx, -5rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-2 {
+  10% {
+    transform: translate(118rpx, -220rpx);
+  }
+
+  28% {
+    transform: translate(-118rpx, -146rpx);
+  }
+
+  48% {
+    transform: translate(132rpx, -46rpx);
+  }
+
+  66% {
+    transform: translate(-60rpx, -242rpx);
+  }
+
+  82% {
+    transform: translate(-24rpx, -62rpx);
+  }
+
+  92% {
+    transform: translate(-6rpx, -12rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-3 {
+  16% {
+    transform: translate(-184rpx, -118rpx);
+  }
+
+  38% {
+    transform: translate(-104rpx, -292rpx);
+  }
+
+  66% {
+    transform: translate(28rpx, -168rpx);
+  }
+
+  82% {
+    transform: translate(18rpx, -48rpx);
+  }
+
+  92% {
+    transform: translate(4rpx, -10rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-4 {
+  14% {
+    transform: translate(218rpx, 52rpx);
+  }
+
+  34% {
+    transform: translate(92rpx, -178rpx);
+  }
+
+  54% {
+    transform: translate(-70rpx, -38rpx);
+  }
+
+  66% {
+    transform: translate(-16rpx, 106rpx);
+  }
+
+  82% {
+    transform: translate(-8rpx, 36rpx);
+  }
+
+  92% {
+    transform: translate(-2rpx, 8rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-5 {
+  12% {
+    transform: translate(-152rpx, 62rpx);
+  }
+
+  32% {
+    transform: translate(-62rpx, -196rpx);
+  }
+
+  54% {
+    transform: translate(114rpx, -44rpx);
+  }
+
+  66% {
+    transform: translate(-84rpx, 110rpx);
+  }
+
+  82% {
+    transform: translate(-34rpx, 42rpx);
+  }
+
+  92% {
+    transform: translate(-8rpx, 9rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-6 {
+  14% {
+    transform: translate(260rpx, -28rpx);
+  }
+
+  36% {
+    transform: translate(202rpx, -188rpx);
+  }
+
+  56% {
+    transform: translate(62rpx, -84rpx);
+  }
+
+  66% {
+    transform: translate(8rpx, 84rpx);
+  }
+
+  82% {
+    transform: translate(4rpx, 32rpx);
+  }
+
+  92% {
+    transform: translate(1rpx, 7rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-7 {
+  14% {
+    transform: translate(-226rpx, -24rpx);
+  }
+
+  36% {
+    transform: translate(-260rpx, -190rpx);
+  }
+
+  54% {
+    transform: translate(-76rpx, -80rpx);
+  }
+
+  66% {
+    transform: translate(-84rpx, 118rpx);
+  }
+
+  82% {
+    transform: translate(-36rpx, 48rpx);
+  }
+
+  92% {
+    transform: translate(-8rpx, 10rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-8 {
+  12% {
+    transform: translate(112rpx, 176rpx);
+  }
+
+  34% {
+    transform: translate(-134rpx, 52rpx);
+  }
+
+  54% {
+    transform: translate(34rpx, -42rpx);
+  }
+
+  66% {
+    transform: translate(-150rpx, 110rpx);
+  }
+
+  82% {
+    transform: translate(-56rpx, 42rpx);
+  }
+
+  92% {
+    transform: translate(-12rpx, 8rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes gacha-around-9 {
+  14% {
+    transform: translate(-176rpx, 164rpx);
+  }
+
+  34% {
+    transform: translate(-58rpx, 28rpx);
+  }
+
+  54% {
+    transform: translate(40rpx, -104rpx);
+  }
+
+  66% {
+    transform: translate(-166rpx, 84rpx);
+  }
+
+  82% {
+    transform: translate(-64rpx, 34rpx);
+  }
+
+  92% {
+    transform: translate(-14rpx, 7rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}

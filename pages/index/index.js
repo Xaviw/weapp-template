@@ -18,6 +18,7 @@ Anim.Page({
       '/demo/pages/text-collapse/index',
       '/demo/pages/canvas/index',
       '/demo/pages/anim/page1/index',
+      '/demo/pages/gacha/index',
     ];
     wx.navigateTo({
       url: pages[type],
