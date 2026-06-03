@@ -2,9 +2,7 @@
   "description": "项目配置文件",
   "compileType": "miniprogram",
   "setting": {
-    "useCompilerPlugins": [
-      "sass"
-    ],
+    "useCompilerPlugins": ["sass"],
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -33,8 +31,14 @@
   },
   "appid": "wx8f1fde6d214dd86f",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "minitest/"
+      }
+    ],
     "include": []
   },
-  "libVersion": "2.32.3"
+  "libVersion": "2.32.3",
+  "testRoot": "minitest/"
 }

@@ -1,0 +1,3 @@
+<view class="expose-page" data-dt-pgid="page1" data-dt-params="a={{ a }}" data-dt-pgasync="onLoad">{{ a }}</view>
+
+<view class="expose-el" data-dt-eid="el1">---------</view>

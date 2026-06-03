@@ -9,11 +9,8 @@ import { env, config } from '@/config';
 
 export function initAnim() {
   Anim.use(DatongPlugin, {
-    // debug: true,
+    debug: true,
     beacon: '0MA00656CDQTRHLG',
-    pageSelector: '.expose-page',
-    exposeSelector: '.expose',
-    exposeParentSelector: '.expose-container',
     autoReport: {
       page: false,
       handler: false,

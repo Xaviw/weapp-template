@@ -1,3 +1,7 @@
-<t-navbar title="登录" left-arrow />
+<view>
+  <image src="/demo/images/logo.png" mode="" />
 
-<t-button open-type="getPhoneNumber" bindgetphonenumber="handleLogin" loading="{{ loading }}">手机号登录</t-button>
+  <text>123</text>
+
+  <text>456</text>
+</view>

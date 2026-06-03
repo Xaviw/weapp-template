@@ -1,4 +1,4 @@
-<t-navbar />
+<t-navbar></t-navbar>
 <button bind:tap="navigate" data-type="0">login</button>
 <button bind:tap="navigate" data-type="1">scroll-view</button>
 <button bind:tap="navigate" data-type="2">font</button>
@@ -6,3 +6,4 @@
 <button bind:tap="navigate" data-type="4">collapse-text</button>
 <button bind:tap="navigate" data-type="5">canvas</button>
 <button bind:tap="navigate" data-type="6">Anim</button>
+<view>foo<!-- c -->bar</view>

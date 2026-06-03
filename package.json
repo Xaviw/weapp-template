@@ -5,15 +5,9 @@
   "type": "module",
   "scripts": {
     "lint": "eslint . --fix",
-    "format": "prettier **/*.{js,wxs,wxml,wxss,scss,less,json,md} --write --check --no-error-on-unmatched-pattern",
-    "postinstall": "npx simple-git-hooks && patch-package"
+    "format": "prettier **/*.{js,wxs,wxml,wxss,scss,less,json,md} --write --check --no-error-on-unmatched-pattern"
   },
   "dependencies": {
-    "@ssv-lab/anim": "^1.1.6",
-    "@ssv-lab/anim-plugin-api-encrypt": "^1.1.6",
-    "@ssv-lab/anim-plugin-api-gray": "^1.1.6",
-    "@ssv-lab/anim-plugin-datong": "^1.2.2",
-    "@ssv-lab/anim-plugin-logger": "^1.1.6",
     "aegis-mp-sdk": "^1.39.1",
     "base64-js": "^1.5.1",
     "cos-wx-sdk-v5": "^1.7.1",
@@ -24,6 +18,7 @@
     "tdesign-miniprogram": "^1.8.4"
   },
   "devDependencies": {
+    "@xaviw/prettier-plugin-wxml": "file:../prettier-plugin-wxml/xaviw-prettier-plugin-wxml-0.1.0.tgz",
     "babel-eslint": "10.1.0",
     "eslint": "7.32.0",
     "eslint-config-alloy": "3.8.2",
