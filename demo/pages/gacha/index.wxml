@@ -16,7 +16,7 @@
     <view class="gacha-container">
       <block wx:for="{{ capsules }}" wx:key="id">
         <view
-          class="gacha-capsule gacha-capsule-pos-{{ item.pos }} gacha-capsule-depth-{{ item.depth }} {{ isMixing ? 'gacha-capsule-run gacha-capsule-run-' : 'gacha-capsule-idle gacha-capsule-idle-' }}{{ item.path }}"
+          class="gacha-capsule gacha-capsule-pos-{{ item.id }} gacha-capsule-depth-{{ item.depth }} {{ isMixing ? 'gacha-capsule-run gacha-capsule-run-' : 'gacha-capsule-idle gacha-capsule-idle-' }}{{ item.id }}"
         >
           <image
             src="./images/gacha.png"
@@ -32,6 +32,52 @@
     <view class="gacha-export">
       <view wx:if="{{ showExportCapsule }}" class="gacha-export-capsule">
         <image src="./images/gacha.png" class="gacha-export-capsule-img" mode="aspectFit" />
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{ resultStage }}" class="result-modal">
+    <image
+      src="./images/modal-animate-decorate.png"
+      class="result-modal-spin-decorate"
+      mode="widthFix"
+    />
+    <image
+      src="./images/modal-decorate.png"
+      class="result-modal-decorate"
+      mode="widthFix"
+    />
+
+    <view class="result-modal-main">
+      <image
+        wx:if="{{ resultStage === 'capsule' }}"
+        src="./images/gacha.png"
+        class="result-modal-capsule"
+        mode="widthFix"
+      />
+
+      <view wx:if="{{ resultStage === 'content' }}" class="result-content">
+        <view class="result-title">
+          <view class="result-title-small">许愿成功</view>
+          <view class="result-title-large">恭喜获得京东 3 元卡</view>
+        </view>
+
+        <view class="result-card">
+          <view class="result-ticket">
+            <view class="result-ticket-name">京东3元卡</view>
+            <view class="result-ticket-code">OSJ**********72D</view>
+            <view class="result-ticket-rule">使用规则 <text class="result-ticket-arrow">›</text></view>
+            <image src="./images/reward-card.png" class="result-ticket-img" mode="aspectFit" />
+          </view>
+          <button class="result-redeem" hover-class="none">去兑换</button>
+        </view>
+
+        <view class="result-actions">
+          <button class="result-action result-action-secondary" hover-class="none" bind:tap="handleCloseResult">
+            收下
+          </button>
+          <button class="result-action result-action-primary" hover-class="none">晒一下</button>
+        </view>
       </view>
     </view>
   </view>
